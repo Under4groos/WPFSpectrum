@@ -99,7 +99,12 @@ namespace WPFNaudioLib
                         break;
                 }
             }
-            list_array = DLib.SmoothHistogram(list_array);
+            for (int i = 0; i < 5; i++)
+            {
+                list_array = DLib.SmoothHistogram(list_array);
+
+            }
+            
         }
     }
 }

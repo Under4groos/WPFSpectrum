@@ -10,7 +10,7 @@ namespace WPFSpectrum
 {
     static class ControlsLib
     {
-        static List<WPFControls.WPFLine> Lines = new List<WPFControls.WPFLine>();
+        readonly static List<WPFControls.WPFLine> Lines = new List<WPFControls.WPFLine>();
         static Grid GR;
         public static WPFControls.WPFLine GetElementByID(int id)
         {

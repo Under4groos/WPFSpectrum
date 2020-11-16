@@ -7,10 +7,13 @@
         xmlns:WPFControls="clr-namespace:WPFControls;assembly=WPFControls" 
         x:Class="WPFSpectrum.MainWindow"
         mc:Ignorable="d" 
-        
-        Title="MainWindow" Height="450" Width="800" Background="#FF6A6A6A" SizeChanged="Window_SizeChanged" Closed="Window_Closed">
+        WindowStyle="None" AllowsTransparency="True" ShowInTaskbar="True"
+        Title="MainWindow" Height="450" Width="800" SizeChanged="Window_SizeChanged" Closed="Window_Closed">
+    <Window.Background>
+        <SolidColorBrush></SolidColorBrush>
+    </Window.Background>
     <Grid>
-        <Border BorderBrush="Red" BorderThickness="1"/>
+        <Border BorderThickness="1"/>
         <Grid x:Name="ListLabel">
 
         

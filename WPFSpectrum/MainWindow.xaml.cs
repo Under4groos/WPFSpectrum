@@ -24,8 +24,8 @@ namespace WPFSpectrum
     /// </summary>
     public partial class MainWindow : Window
     {
-        Audio audio;
-        TimerTick timer = new TimerTick();
+        readonly Audio audio;
+        readonly TimerTick timer = new TimerTick();
         public MainWindow()
         {
             InitializeComponent();
@@ -34,16 +34,16 @@ namespace WPFSpectrum
             
 
             timer.Time = 1;
-            timer.Tick += timer_Tick;
+            timer.Tick += Timer_Tick;
             timer.Start();
             audio.StartRecording();
         }
-        void timer_Tick(object sender ,EventArgs e)
+        void Timer_Tick(object sender ,EventArgs e)
         {
             for (int i = 0; i < ControlsLib.Count(); i++)
             {
                 double size_h = audio.list_array[i];
-
+                double last_size_h = ControlsLib.GetElementByID(i).SizeHeight;
                 if (size_h > 5)
                 {
                     size_h = this.Height - size_h;
@@ -53,10 +53,17 @@ namespace WPFSpectrum
                     size_h = 5;
                 }
 
-                double d = size_h / this.Height;
+                if (size_h > last_size_h)
+                {
+                    ControlsLib.GetElementByID(i).SizeHeight = size_h;
+                }
+                else
+                {
+                    ControlsLib.GetElementByID(i).SizeHeight -= last_size_h * 0.1;
+                }
 
 
-                ControlsLib.GetElementByID(i).SizeHeight = size_h;
+                
 
             }
         }
