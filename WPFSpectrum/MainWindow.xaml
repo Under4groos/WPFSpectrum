@@ -9,7 +9,7 @@
         Title="MainWindow" Height="450" Width="800" Background="#00000000">
     <Grid>
         <Border BorderBrush="Red" BorderThickness="1"/>
-        <Grid x:Name="ListLabel">
+        <Grid x:Name="ListLabel" Loaded="ListLabel_Loaded">
 
         
         </Grid>

@@ -24,13 +24,13 @@ namespace WPFSpectrum
         {
             InitializeComponent();
 
-            for (int i = 0; i < 25; i++)
-            {
+            
 
+        }
 
-                ListLabel.Children.Add(null);
-            }
-
+        private void ListLabel_Loaded(object sender, RoutedEventArgs e)
+        {
+            ControlsLib.CreateLine(this.Height,this.Width, 15, ListLabel);
         }
     }
 }

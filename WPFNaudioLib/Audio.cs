@@ -37,7 +37,7 @@ namespace WPFNaudioLib
         public void StartRecording()
         {
             AudioDevice.SearchActDeviceID();
-            audio = new AudioLib(Length);
+            audio = audio ?? new AudioLib(Length);
             audio.FftCalculated += new EventHandler<FftEventArgs>(FFT);
             audio.PerformFFT = true;
 
