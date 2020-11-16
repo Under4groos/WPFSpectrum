@@ -11,7 +11,7 @@ namespace WPFNaudioLib
     {
         IWaveIn waveIn;
         AudioLib audio;
-        public static List<double> list_array = new List<double>();
+        public  List<double> list_array = new List<double>();
         public enum AudioChannelFFT
         {
             FFT_256 = 128,
@@ -27,7 +27,7 @@ namespace WPFNaudioLib
         {
             get; set;
         }
-        Audio()
+        public Audio()
         {
             Length = (int)AudioChannelFFT.FFT_1024;
         }

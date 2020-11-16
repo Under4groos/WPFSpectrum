@@ -12,7 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using WPFNaudioLib;
+using WPFControls;
 namespace WPFSpectrum
 {
     /// <summary>
@@ -20,16 +21,25 @@ namespace WPFSpectrum
     /// </summary>
     public partial class MainWindow : Window
     {
+        Audio audio;
         public MainWindow()
         {
             InitializeComponent();
 
-            for (int i = 0; i < 25; i++)
-            {
+            audio = new Audio();
+            audio.StartRecording();
+            
+        }
 
+        private void ListLabel_Loaded(object sender, RoutedEventArgs e)
+        {
+            ControlsLib.CreateLine(this.Height,this.Width, 8, ListLabel);
+        }
 
-                ListLabel.Children.Add(null);
-            }
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            ControlsLib.Clear();
+            ControlsLib.CreateLine(this.Height, this.Width, 8, ListLabel);
 
         }
     }

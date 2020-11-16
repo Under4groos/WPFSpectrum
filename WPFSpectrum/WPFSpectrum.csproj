@@ -104,6 +104,10 @@
       <Project>{906f25bd-f527-490f-abc6-9c66d9be2f19}</Project>
       <Name>WPFControls</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WPFNaudioLib\WPFNaudioLib.csproj">
+      <Project>{f7f4c088-cf14-4911-991c-6ee27c27374d}</Project>
+      <Name>WPFNaudioLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
