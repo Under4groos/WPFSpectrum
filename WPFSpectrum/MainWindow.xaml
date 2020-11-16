@@ -8,7 +8,7 @@
         x:Class="WPFSpectrum.MainWindow"
         mc:Ignorable="d" 
         
-        Title="MainWindow" Height="450" Width="800" Background="#FF6A6A6A" SizeChanged="Window_SizeChanged">
+        Title="MainWindow" Height="450" Width="800" Background="#FF6A6A6A" SizeChanged="Window_SizeChanged" Closed="Window_Closed">
     <Grid>
         <Border BorderBrush="Red" BorderThickness="1"/>
         <Grid x:Name="ListLabel">

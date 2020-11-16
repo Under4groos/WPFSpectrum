@@ -14,6 +14,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPFNaudioLib;
 using WPFControls;
+using WpfSpectrum;
+using System.Diagnostics;
+
 namespace WPFSpectrum
 {
     /// <summary>
@@ -22,15 +25,28 @@ namespace WPFSpectrum
     public partial class MainWindow : Window
     {
         Audio audio;
+        TimerTick timer = new TimerTick();
         public MainWindow()
         {
             InitializeComponent();
 
             audio = new Audio();
-            audio.StartRecording();
             
-        }
 
+            timer.Time = 1;
+            timer.Tick += timer_Tick;
+            timer.Start();
+            audio.StartRecording();
+        }
+        void timer_Tick(object sender ,EventArgs e)
+        {
+            for (int i = 0; i < ControlsLib.Count(); i++)
+            {
+                double size_h =this.Height - audio.list_array[i];
+
+                ControlsLib.GetElementByID(i).SizeHeight = size_h;
+            }
+        }
         private void ListLabel_Loaded(object sender, RoutedEventArgs e)
         {
             ControlsLib.CreateLine(this.Height,this.Width, 8, ListLabel);
@@ -41,6 +57,14 @@ namespace WPFSpectrum
             ControlsLib.Clear();
             ControlsLib.CreateLine(this.Height, this.Width, 8, ListLabel);
 
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            
+            audio.StopRecording();
+            timer.Stop();
+            
         }
     }
 }

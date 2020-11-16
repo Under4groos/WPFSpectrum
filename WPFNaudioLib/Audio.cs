@@ -53,13 +53,18 @@ namespace WPFNaudioLib
         /// </summary>
         public void StopRecording()
         {
-            if (waveIn != null)
-                waveIn.StopRecording();
+            waveIn.StopRecording();
+
+            audio = null;
+
+
+
         }
 
         private void WaveIn_DataAvailable(object sender, WaveInEventArgs e)
         {
-
+            if (audio == null)
+                return;
             byte[] buffer = e.Buffer;
             int bytesRecorded = e.BytesRecorded;
             int bufferIncrement = waveIn.WaveFormat.BlockAlign;
@@ -69,6 +74,10 @@ namespace WPFNaudioLib
                 {
                     float sample32 = BitConverter.ToSingle(buffer, index);
                     audio.Add(sample32);
+                }
+                else
+                {
+                    break;
                 }
             }
         }

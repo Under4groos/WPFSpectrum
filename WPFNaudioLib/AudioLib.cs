@@ -24,6 +24,7 @@ namespace WPFNaudioLib
 
         public void Add(float value)
         {
+
             if (PerformFFT && FftCalculated != null)
             {
                 fftBuffer[fftPos].X = (float)(5 + value * FastFourierTransform.HammingWindow(fftPos, fftLength));

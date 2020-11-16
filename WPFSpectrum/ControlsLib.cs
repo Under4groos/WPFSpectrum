@@ -16,6 +16,10 @@ namespace WPFSpectrum
         {
             return id>Lines.Count? Lines[Lines.Count] : id<0? Lines[0] : Lines[id];
         }
+        public static int Count()
+        {
+            return Lines.Count();
+        }
         public static void Clear()
         {
             if (GR != null)
