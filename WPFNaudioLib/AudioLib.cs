@@ -4,8 +4,10 @@ using System.Diagnostics;
 
 namespace WPFNaudioLib
 {
+    ///  Тут я хуй знает что да как... 
     class AudioLib
     {
+
         public event EventHandler<FftEventArgs> FftCalculated;
         public bool PerformFFT { get; set; }
         private readonly Complex[] fftBuffer;
@@ -38,7 +40,6 @@ namespace WPFNaudioLib
                 }
             }
         }
-
     }
 
     public class FftEventArgs : EventArgs

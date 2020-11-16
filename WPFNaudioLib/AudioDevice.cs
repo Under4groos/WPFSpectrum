@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WPFNaudioLib
 {
-    static class AudioDevice
+    public static class AudioDevice
     {
         /// <summary>
         /// Список устройств.

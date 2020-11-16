@@ -15,14 +15,16 @@ namespace WPFSpectrum
         /// <summary>
         /// Размер линий.
         /// </summary>
-        public static int SizeLineHeight = 8;
+        public static int SizeLineHeight = 13;
         /// <summary>
         /// Интервал таймера.
         /// </summary>
         public static int TimeInterval = 1;
         /// <summary>
-        /// Плавное вычитание размера линии.
+        /// Плавное вычитание размера линий.
         /// </summary>
         public static double Increment = 0.22;
+
+
     }
 }

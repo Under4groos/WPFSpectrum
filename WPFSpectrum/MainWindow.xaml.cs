@@ -41,6 +41,7 @@ namespace WPFSpectrum
         }
         void Timer_Tick(object sender ,EventArgs e)
         {
+
             for (int i = 0; i < ControlsLib.Count(); i++)
             {
                 double size_h = audio.list_array[i];
@@ -54,29 +55,32 @@ namespace WPFSpectrum
                     size_h = 5;
                 }
 
-                if (size_h > last_size_h)
-                {
-                    ControlsLib.GetElementByID(i).SizeHeight = size_h;
-                }
-                else
-                {
-                    ControlsLib.GetElementByID(i).SizeHeight -= last_size_h * (Configuration.Increment * 0.25);
-                }
-
+                
+                    if (size_h > last_size_h)
+                    {
+                        ControlsLib.GetElementByID(i).SizeHeight = size_h;
+                    }
+                    else
+                    {
+                        ControlsLib.GetElementByID(i).SizeHeight -= last_size_h * (Configuration.Increment * 0.25);
+                    }
 
                 
 
+
+
             }
+            
         }
         private void ListLabel_Loaded(object sender, RoutedEventArgs e)
         {
-            ControlsLib.CreateLine(this.Height,this.Width, Configuration.SizeLineHeight, ListLabel);
+            ControlsLib.CreateLine(this.Height,this.Width, Configuration.SizeLineHeight, ListLine);
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             ControlsLib.Clear();
-            ControlsLib.CreateLine(this.Height, this.Width, Configuration.SizeLineHeight, ListLabel);
+            ControlsLib.CreateLine(this.Height, this.Width, Configuration.SizeLineHeight, ListLine);
 
         }
 
