@@ -27,10 +27,16 @@ namespace WPFNaudioLib
         {
             get; set;
         }
+        public int CSmoothHistogram
+        {
+            get;set;
+        }
         public Audio()
         {
             Length = (int)AudioChannelFFT.FFT_2048;
+            CSmoothHistogram = 1;
         }
+
         /// <summary>
         /// Старт записи.
         /// </summary>
@@ -56,9 +62,6 @@ namespace WPFNaudioLib
             waveIn.StopRecording();
 
             audio = null;
-
-
-
         }
 
         private void WaveIn_DataAvailable(object sender, WaveInEventArgs e)
@@ -99,12 +102,18 @@ namespace WPFNaudioLib
                         break;
                 }
             }
-            for (int i = 0; i < 5; i++)
+            if( CSmoothHistogram == 0)
             {
                 list_array = DLib.SmoothHistogram(list_array);
-
             }
-            
+            else 
+            {
+                for (int i = 0; i < CSmoothHistogram; i++)
+                {
+                    list_array = DLib.SmoothHistogram(list_array);
+
+                }
+            }  
         }
     }
 }

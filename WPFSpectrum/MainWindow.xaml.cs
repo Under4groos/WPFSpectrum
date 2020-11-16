@@ -33,10 +33,11 @@ namespace WPFSpectrum
             audio = new Audio();
             
 
-            timer.Time = 1;
+            timer.Time = Configuration.TimeInterval;
             timer.Tick += Timer_Tick;
             timer.Start();
             audio.StartRecording();
+            audio.CSmoothHistogram = Configuration.CountSmoothHistogram;
         }
         void Timer_Tick(object sender ,EventArgs e)
         {
@@ -59,7 +60,7 @@ namespace WPFSpectrum
                 }
                 else
                 {
-                    ControlsLib.GetElementByID(i).SizeHeight -= last_size_h * 0.1;
+                    ControlsLib.GetElementByID(i).SizeHeight -= last_size_h * (Configuration.Increment * 0.25);
                 }
 
 
@@ -69,13 +70,13 @@ namespace WPFSpectrum
         }
         private void ListLabel_Loaded(object sender, RoutedEventArgs e)
         {
-            ControlsLib.CreateLine(this.Height,this.Width, 8, ListLabel);
+            ControlsLib.CreateLine(this.Height,this.Width, Configuration.SizeLineHeight, ListLabel);
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             ControlsLib.Clear();
-            ControlsLib.CreateLine(this.Height, this.Width, 8, ListLabel);
+            ControlsLib.CreateLine(this.Height, this.Width, Configuration.SizeLineHeight, ListLabel);
 
         }
 
