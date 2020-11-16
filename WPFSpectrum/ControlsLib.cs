@@ -45,7 +45,7 @@ namespace WPFSpectrum
 
                 };
                 
-                wPFLine.Margin = new Thickness(size_ * i, 0, 0,0);
+                wPFLine.Margin = new Thickness(size_ * i, 0, 0,2);
                 grid.Children.Add(wPFLine);
                 Lines.Add(wPFLine);
             }

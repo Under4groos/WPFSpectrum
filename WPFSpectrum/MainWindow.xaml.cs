@@ -42,9 +42,22 @@ namespace WPFSpectrum
         {
             for (int i = 0; i < ControlsLib.Count(); i++)
             {
-                double size_h =this.Height - audio.list_array[i];
+                double size_h = audio.list_array[i];
+
+                if (size_h > 5)
+                {
+                    size_h = this.Height - size_h;
+                }
+                else
+                {
+                    size_h = 5;
+                }
+
+                double d = size_h / this.Height;
+
 
                 ControlsLib.GetElementByID(i).SizeHeight = size_h;
+
             }
         }
         private void ListLabel_Loaded(object sender, RoutedEventArgs e)

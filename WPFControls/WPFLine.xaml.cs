@@ -26,8 +26,14 @@ namespace WPFControls
         }
         public double SizeHeight
         {
-            get { return (double)GetValue(SizeHeight_); }
-            set { SetValue(SizeHeight_, value); }
+            get 
+            { 
+                return (double)GetValue(SizeHeight_); 
+            }
+            set 
+            { 
+                SetValue(SizeHeight_, value); 
+            }
         }
         public static readonly DependencyProperty SizeHeight_ = DependencyProperty.Register(
             "SizeHeight", typeof(double), typeof(WPFLine),
@@ -37,7 +43,11 @@ namespace WPFControls
             );
         void Update()
         {
-            WPFBorder.Height = SizeHeight < 5 ? 5 : SizeHeight;
+            if (5 > SizeHeight)
+                SizeHeight = 5;
+            if (SizeHeight > this.Height)
+                SizeHeight = this.Height;
+            WPFBorder.Height = SizeHeight;
         }
     }
 }

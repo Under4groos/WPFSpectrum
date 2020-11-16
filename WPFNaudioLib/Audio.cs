@@ -29,7 +29,7 @@ namespace WPFNaudioLib
         }
         public Audio()
         {
-            Length = (int)AudioChannelFFT.FFT_1024;
+            Length = (int)AudioChannelFFT.FFT_2048;
         }
         /// <summary>
         /// Старт записи.
