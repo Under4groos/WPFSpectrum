@@ -14,9 +14,6 @@
     </Window.Background>
     <Grid>
         <Border BorderThickness="1"/>
-        <Grid x:Name="ListLine">
-            <WPFControls:Button Text="2222" CornerRadius="34" SizeFont="25" HorizontalAlignment="Left" Height="80" Margin="280,185,0,0" VerticalAlignment="Top" Width="235" BackgroundHoverEnter="#7FE85858" BackgroundHoverLeave="#FF7C7B7B"/>
-
-        </Grid>
+        <Grid x:Name="ListLine"></Grid>
     </Grid>
 </Window>

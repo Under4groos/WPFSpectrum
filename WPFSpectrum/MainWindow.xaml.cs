@@ -1,31 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using WPFNaudioLib;
-using WPFControls;
 using WpfSpectrum;
-using System.Diagnostics;
-
+using System.Windows.Forms;
 namespace WPFSpectrum
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         readonly Audio audio;
         readonly TimerTick timer = new TimerTick();
+        readonly NotifyIcon ntic = new NotifyIcon();
         public MainWindow()
         {
             InitializeComponent();
@@ -36,9 +20,20 @@ namespace WPFSpectrum
             timer.Time = Configuration.TimeInterval;
             timer.Tick += Timer_Tick;
             timer.Start();
+
             audio.StartRecording();
             audio.CSmoothHistogram = Configuration.CountSmoothHistogram;
+
+            ntic.Icon = Properties.Resources.Icon_ico;
+            ntic.Visible = true;
+            ntic.MouseClick += delegate (object sender, MouseEventArgs e)
+            {
+
+            };
+
         }
+
+
         void Timer_Tick(object sender ,EventArgs e)
         {
 
