@@ -1,18 +1,16 @@
 ﻿using NAudio.Wave;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace WPFNaudioLib
 {
-    public class Audio
+    public class AudioChannelFFT
     {
-        IWaveIn waveIn;
-        AudioLib audio;
-        public  List<double> list_array = new List<double>();
-        public enum AudioChannelFFT
+        public enum ChannelFFT
         {
             FFT_256 = 128,
             FFT_512 = 256,
@@ -23,6 +21,13 @@ namespace WPFNaudioLib
             FFT_16384 = 8192,
             FFT_32768 = 16384,
         }
+    }
+    public class Audio
+    {
+        IWaveIn waveIn;
+        AudioLib audio;
+        public  List<double> list_array = new List<double>();
+        
         public int Length
         {
             get; set;
@@ -33,7 +38,7 @@ namespace WPFNaudioLib
         }
         public Audio()
         {
-            Length = (int)AudioChannelFFT.FFT_2048;
+            Length = (int)AudioChannelFFT.ChannelFFT.FFT_2048;
             CSmoothHistogram = 1;
         }
 
@@ -89,7 +94,9 @@ namespace WPFNaudioLib
             int Length_FFT = e.Result.Length;
             for (int i = 1; i < Length_FFT; i++)
             {
-                double res = DLib.Map(DLib.Deb(e.Result[i].X, e.Result[i].Y), 0, -90f, 0, 12000);
+                double _d = DLib.Deb(e.Result[i].X, e.Result[i].Y);
+                double res = DLib.Map(_d, 0, -90f, 0, 12000);
+
                 switch (list_array.Count == Length_FFT)
                 {
                     case false:
@@ -102,11 +109,11 @@ namespace WPFNaudioLib
                         break;
                 }
             }
-            if( CSmoothHistogram == 0)
+            if( CSmoothHistogram <= 0)
             {
                 list_array = DLib.SmoothHistogram(list_array);
             }
-            else 
+            else if(CSmoothHistogram >= 1)
             {
                 for (int i = 0; i < CSmoothHistogram; i++)
                 {

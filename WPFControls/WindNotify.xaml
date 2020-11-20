@@ -1,0 +1,50 @@
+﻿<Window x:Class="WPFControls.WindNotify"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFControls"
+        mc:Ignorable="d" ShowInTaskbar="False"  
+        WindowStyle="None" AllowsTransparency="True" 
+        Title="" Height="450" Width="800" MouseLeave="Window_MouseLeave">
+    <Window.Background>
+        <SolidColorBrush Color="#E5232323"></SolidColorBrush>
+    </Window.Background>
+    <Grid>
+        <Label Content="UnderKo" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="White" Height="25" Width="56"/>
+        <Border BorderBrush="#FF17FF00" BorderThickness="0,0,1,0" Margin="0,0,575,0">
+            <StackPanel>
+                <Border Background="#19FFFFFF" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="215" Margin="5,5,0,0" BorderBrush="White" BorderThickness="1">
+                    <Grid>
+                        <Border BorderBrush="White" BorderThickness="1,1,0,1" Margin="100,2,0,2">
+                            <TextBox Name="TextBoxSizeWindow" TextWrapping="Wrap" Text="800*600" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" SelectionTextBrush="White" BorderBrush="{x:Null}" FontFamily="Bahnschrift Light" FontSize="18"/>
+                        </Border>
+                        <Label Margin="0,0,110,0" Content="Size window" Foreground="White" FontFamily="Arial Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <!---->
+                <Border Background="#19FFFFFF" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="215" Margin="5,5,0,0" BorderBrush="White" BorderThickness="1">
+                    <Grid>
+                        <Border BorderBrush="White" BorderThickness="1,1,0,1" Margin="100,2,0,2">
+                            <TextBox x:Name="TextBox_Smooth" TextWrapping="Wrap" Text="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" SelectionTextBrush="White" BorderBrush="{x:Null}" FontFamily="Bahnschrift Light" FontSize="18"/>
+                        </Border>
+                        <Label Margin="0,0,110,0" Content="Smooth" Foreground="White" FontFamily="Arial Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border Background="#19FFFFFF" Height="140" Margin="5,5,5,0" BorderBrush="White" BorderThickness="1">
+                    <Grid>
+                        <Border BorderBrush="White" BorderThickness="1" Height="{Binding Height, ElementName=label}" VerticalAlignment="Top">
+                            <Label x:Name="Label_poswind" Content="Position window" FontFamily="Arial Black" Foreground="White"/>
+                        </Border>
+                        <Border VerticalAlignment="Top" HorizontalAlignment="Left" Width="25" Height="25" Background="Red" Margin="0,26,0,0"/>
+                        <Border VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="25" Height="25" Background="Red" Margin="0,26,0,0"/>
+                        <Border VerticalAlignment="Top" HorizontalAlignment="Right" Width="25" Height="25" Background="Red" Margin="0,26,0,0"/>
+                        <Border VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="25" Height="25" Background="Red" Margin="0,26,0,0"/>
+
+
+                    </Grid>
+                </Border>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

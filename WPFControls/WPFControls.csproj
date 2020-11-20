@@ -34,6 +34,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -49,6 +51,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Button.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindNotify.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -75,6 +81,10 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Register.cs" />
+    <Compile Include="User32Mouse.cs" />
+    <Compile Include="WindNotify.xaml.cs">
+      <DependentUpon>WindNotify.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WPFLine.xaml.cs">
       <DependentUpon>WPFLine.xaml</DependentUpon>
     </Compile>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,8 +35,16 @@ namespace WPFNaudioLib
         }
         public static double Deb(double a, double b)
         {
-            return (double)(Math.Log(Math.Sqrt(Math.Pow(a, 2) + Math.Pow(b, 2)), 25f));
+            return (double)(
+                Math.Log(
+                    Math.Sqrt(
+                        Math.Pow(a, 2) + 
+                        Math.Pow(b, 2)),                    
+                    25
+                    )
+                );
         }
+
 
     }
 }

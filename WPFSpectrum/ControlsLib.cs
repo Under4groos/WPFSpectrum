@@ -52,7 +52,7 @@ namespace WPFSpectrum
             int count = (int)SizeWindowWidth / SizePanelWidth;
             double size_ = SizeWindowWidth / count;
             Debug.WriteLine($"Size:{size_} Count:{count}");
-            for (int i = 1; i < count-3; i++)
+            for (int i = 0; i < count; i++)
             {
                 WPFControls.WPFLine wPFLine = new WPFControls.WPFLine
                 {
