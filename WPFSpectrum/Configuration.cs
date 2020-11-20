@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace WPFSpectrum
 {
@@ -34,5 +35,20 @@ namespace WPFSpectrum
         /// Позиция окна с линиями.
         /// </summary>
         public  Size PositionWindow = new Size(800, 600);
+        /// <summary>
+        /// Цвет линий.
+        /// </summary>
+        public Color ColorLine = Color.FromArgb(255, 44, 255, 71);
+        /// <summary>
+        /// Промежуточный цвет A.
+        /// </summary>
+        public Color ColorLineA = Color.FromArgb(255, 255, 0, 0);
+        /// <summary>
+        /// Промежуточный цвет B.
+        /// </summary>
+        public Color ColorLineB = Color.FromArgb(255, 33, 255, 0);
+
+        public bool TomMost = true;
+
     }
 }

@@ -44,6 +44,7 @@
 
                     </Grid>
                 </Border>
+                <local:CheckBox  x:Name="CBox" Text="Поверх остальных окон" Height="30" Width="Auto" Margin="5,5,4,0"/>
             </StackPanel>
         </Border>
     </Grid>

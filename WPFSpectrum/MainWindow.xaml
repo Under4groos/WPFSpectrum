@@ -13,7 +13,8 @@
         <SolidColorBrush></SolidColorBrush>
     </Window.Background>
     <Grid>
-        <Border BorderThickness="1" BorderBrush="Red"/>
-        <Grid x:Name="ListLine"></Grid>
+        <Border x:Name="BorderIsActiveSettingWind" BorderThickness="1" BorderBrush="Red"/>
+        <Grid x:Name="ListLine">
+        </Grid>
     </Grid>
 </Window>

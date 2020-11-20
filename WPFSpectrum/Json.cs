@@ -28,6 +28,8 @@ namespace WPFSpectrum
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(NameFile))
             {
                 file.WriteLine(output);
+                string date = DateTime.Now.ToLocalTime().ToString();
+                Debug.WriteLine($"[Config {date}] Save new config\n");
             }
         }
         public bool IsVoidFile()
@@ -39,14 +41,13 @@ namespace WPFSpectrum
             using (FileStream fstream = File.Open(NameFile, FileMode.Open))
             {
                 byte[] array = new byte[fstream.Length];
-                // считываем данные
                 fstream.Read(array, 0, array.Length);
-                // декодируем байты в строку
+                
                 string textFromFile = System.Text.Encoding.Default.GetString(array);
-
-                Debug.WriteLine("-----\n\n" + textFromFile + "-------\n\n");
-
+                    
                 Config = JsonConvert.DeserializeObject<Configuration>(textFromFile);
+                string date = DateTime.Now.ToLocalTime().ToString();
+                Debug.WriteLine($"[Config {date}] Open last config\n");
             }
         }
        

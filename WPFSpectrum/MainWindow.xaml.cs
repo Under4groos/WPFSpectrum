@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Diagnostics;
 using Newtonsoft.Json;
+using System.Windows.Media;
+using System.Windows.Input;
 
 namespace WPFSpectrum
 {
@@ -18,7 +20,7 @@ namespace WPFSpectrum
         readonly NotifyIcon ntic = new NotifyIcon();
         WindNotify windNotify = new WindNotify();
         readonly Configuration cfg = new Configuration();
-        Json j = new Json();
+        readonly Json j = new Json();
 
         public MainWindow()
         {
@@ -49,7 +51,7 @@ namespace WPFSpectrum
             this.Width = cfg.SizeWindow.X;
             this.Height = cfg.SizeWindow.Y;
             windNotify.textBoxes[0].Text = string.Format("{0}*{1}", cfg.SizeWindow.X, cfg.SizeWindow.Y) ;
-
+            windNotify.CheckBoxs[0].Active = cfg.TomMost;
             audio = new Audio();
 
 
@@ -62,7 +64,7 @@ namespace WPFSpectrum
 
             ntic.Icon = Properties.Resources.Icon_ico;
             ntic.Visible = true;            
-            ntic.MouseClick += delegate (object sender, MouseEventArgs e)
+            ntic.MouseClick += delegate (object sender, System.Windows.Forms.MouseEventArgs e)
             {
                 switch (e.Button)
                 {
@@ -76,10 +78,11 @@ namespace WPFSpectrum
                         windNotify.Show();
                         foreach (var item in windNotify.textBoxes)
                         {
-                            windNotify.EventTextChanged(item , Test);
+                            windNotify.EventTextChanged(item , EventText_notify);
                         }
-                       
-                       
+                        windNotify.EventMouseDownChanged(windNotify.CheckBoxs[0], EventClick);
+
+
                         break;
                     case MouseButtons.Middle:
                         break;
@@ -93,36 +96,47 @@ namespace WPFSpectrum
             };
 
         }
-        void Test(object sender, TextChangedEventArgs e)
+
+        private void EventClick(object sender, MouseButtonEventArgs e)
+        {
+            cfg.TomMost = windNotify.CheckBoxs[0].Active;
+            saveSetting();
+        }
+
+        void EventText_notify(object sender, TextChangedEventArgs e)
         {
             string text_Smooth = windNotify.textBoxes[1].Text;
             if (int.TryParse(text_Smooth, out int c))
             {
-                audio.CSmoothHistogram = cfg.CountSmoothHistogram = c;
-                Debug.WriteLine(c);
+                audio.CSmoothHistogram = cfg.CountSmoothHistogram = c;               
             }
             string text_size = windNotify.textBoxes[0].Text;
 
             string[] strarray = text_size.Split(new char[] { '*' });
+            if (strarray.Length != 2)
+                return;
             if (int.TryParse(strarray[0], out int x) && int.TryParse(strarray[1], out int y))
             {
                 cfg.SizeWindow = new Size(x, y);
                 this.Width = x;
-                this.Height = y;
-                Debug.WriteLine(c);
+                this.Height = y;               
             }
+            saveSetting();
+        }
+
+        public void saveSetting()
+        {
             try
             {
                 j.Config = cfg;
                 j.SaveJson();
             }
-            catch (Exception){}
+            catch (Exception) { }
         }
-
-      
 
         void Timer_Tick(object sender ,EventArgs e)
         {
+            
             int count = 0;
             int Count_control = ControlsLib.Count();
             int Count_fft_array = audio.list_array.Count;
@@ -149,28 +163,39 @@ namespace WPFSpectrum
                 {
                     size_h = 5;
                 }
-
-                
-                    if (size_h > last_size_h)
-                    {
-                        ControlsLib.GetElementByID(i).SizeHeight = size_h;
-                    }
-                    else
-                    {
-                        ControlsLib.GetElementByID(i).SizeHeight -= last_size_h * cfg.Increment * 0.1;
-                    }
+                if (size_h > last_size_h)
+                {
+                    ControlsLib.GetElementByID(i).SizeHeight = size_h;
+                    // ControlsLib.GetElementByID(i).ColorLine = ColorLib.ColorDev(cfg.ColorLine, cfg.ColorLineA);
+                }
+                else
+                {
+                    // ControlsLib.GetElementByID(i).SizeHeight -= last_size_h * cfg.Increment * 0.1;
+                    // ControlsLib.GetElementByID(i).ColorLine = cfg.ColorLine;
+                }
             }
+
             
+            this.Topmost = cfg.TomMost;
+            //if (windNotify.IsActive == true)
+            //{
+            //    ControlsLib.ControlWindNotifysetColor(BorderIsActiveSettingWind, 255, 255, 0, 0);
+            //}
+            //else
+            //{
+            //    ControlsLib.ControlWindNotifysetColor(BorderIsActiveSettingWind, 0, 0, 0, 0);
+            //}
+
         }
         private void ListLabel_Loaded(object sender, RoutedEventArgs e)
         {
-            ControlsLib.CreateLine(this.Height,this.Width, cfg.SizeLineHeight, ListLine);
+            ControlsLib.CreateLine(this.Height,this.Width, cfg.SizeLineHeight, ListLine, cfg.ColorLine);
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             ControlsLib.Clear();
-            ControlsLib.CreateLine(this.Height, this.Width, cfg.SizeLineHeight, ListLine);
+            ControlsLib.CreateLine(this.Height, this.Width, cfg.SizeLineHeight, ListLine , cfg.ColorLine);
 
         }
 

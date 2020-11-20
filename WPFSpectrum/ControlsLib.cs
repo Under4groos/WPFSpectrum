@@ -6,10 +6,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using WPFControls;
+
 namespace WPFSpectrum
 {
     static class ControlsLib
     {
+
+        public static void ControlWindNotifysetColor(Border ui , byte a , byte r , byte g , byte b)
+        {         
+                ui.BorderBrush = new System.Windows.Media.SolidColorBrush(Color.FromArgb(a, r, g, b));
+        }
+
+
         readonly static List<WPFControls.WPFLine> Lines = new List<WPFControls.WPFLine>();
         static Grid GR;
         /// <summary>
@@ -46,7 +56,7 @@ namespace WPFSpectrum
         /// <param name="SizePanelWidth"></param>
         /// <param name="grid"></param>
         public static void CreateLine(
-           double SizeWindowHeight, double SizeWindowWidth, int SizePanelWidth,Grid grid)
+           double SizeWindowHeight, double SizeWindowWidth, int SizePanelWidth,Grid grid , Color color)
         {
             GR = grid;
             int count = (int)SizeWindowWidth / SizePanelWidth;
@@ -60,8 +70,9 @@ namespace WPFSpectrum
                     Width = size_,
                     HorizontalAlignment = HorizontalAlignment.Left,
                     VerticalAlignment = VerticalAlignment.Bottom,
-                    SizeHeight = 5
-
+                    SizeHeight = 5,
+                    ColorLine = color
+                    
                 };              
                 wPFLine.Margin = new Thickness(size_ * i, 0, 0,2);
                 grid.Children.Add(wPFLine);

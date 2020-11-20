@@ -54,6 +54,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="CheckBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ColorBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WindNotify.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -66,6 +74,12 @@
   <ItemGroup>
     <Compile Include="Button.xaml.cs">
       <DependentUpon>Button.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CheckBox.xaml.cs">
+      <DependentUpon>CheckBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ColorBox.xaml.cs">
+      <DependentUpon>ColorBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

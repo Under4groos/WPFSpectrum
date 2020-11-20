@@ -67,6 +67,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ColorLib.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Json.cs" />
     <Compile Include="Point.cs" />

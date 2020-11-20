@@ -36,6 +36,13 @@ namespace WPFNaudioLib
         {
             get;set;
         }
+
+        public double Db
+        {
+            get; set;
+        } = -90;
+
+
         public Audio()
         {
             Length = (int)AudioChannelFFT.ChannelFFT.FFT_2048;
@@ -95,7 +102,8 @@ namespace WPFNaudioLib
             for (int i = 1; i < Length_FFT; i++)
             {
                 double _d = DLib.Deb(e.Result[i].X, e.Result[i].Y);
-                double res = DLib.Map(_d, 0, -90f, 0, 12000);
+
+                double res = DLib.Map(_d, 0, Db, 0, 12000);
 
                 switch (list_array.Count == Length_FFT)
                 {
