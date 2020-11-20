@@ -29,7 +29,11 @@ namespace WPFSpectrum
         /// <returns></returns>
         public static WPFControls.WPFLine GetElementByID(int id)
         {
-            return id>Lines.Count? Lines[Lines.Count] : id<0? Lines[0] : Lines[id];
+            if (id > Lines.Count)
+                id = Lines.Count;
+            if (id < 0)
+                id = 0;
+            return Lines[id];
         }
         /// <summary>
         /// Получить кол-во линий.

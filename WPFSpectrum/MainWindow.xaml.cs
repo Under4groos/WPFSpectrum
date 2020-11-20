@@ -53,8 +53,11 @@ namespace WPFSpectrum
             this.Width = cfg.SizeWindow.X;
             this.Height = cfg.SizeWindow.Y;
             windNotify.textBoxes[0].Text = string.Format("{0}*{1}", cfg.SizeWindow.X, cfg.SizeWindow.Y) ;
-            windNotify.CheckBoxs[0].Active = cfg.TomMost;
+            windNotify.textBoxes[1].Text = cfg.CountSmoothHistogram.ToString();
             windNotify.textBoxes[2].Text = cfg.SizeLineHeight.ToString();
+            
+
+            windNotify.CheckBoxs[0].Active = cfg.TomMost;
 
             timer.Time = cfg.TimeInterval;
             timer.Tick += Timer_Tick;
@@ -135,7 +138,7 @@ namespace WPFSpectrum
             string text_sizeline = windNotify.textBoxes[2].Text;
             if(int.TryParse(text_sizeline, out int s))
             {
-                cfg.SizeLineHeight = s > 2? s:2;
+                cfg.SizeLineHeight = s > 3? s:3;
                 ControlsLib.Clear();
                 ControlsLib.CreateLine(this.Height, this.Width, cfg.SizeLineHeight, ListLine, cfg.ColorLine);
             }
@@ -191,10 +194,13 @@ namespace WPFSpectrum
                 if (size_h > last_size_h)
                 {
                     ControlsLib.GetElementByID(i).SizeHeight = size_h;
-                    
+
                 }
                 else
                 {
+
+
+
                      ControlsLib.GetElementByID(i).SizeHeight -= last_size_h * cfg.Increment * 0.1;
                     // ControlsLib.GetElementByID(i).ColorLine = cfg.ColorLine;
                 }
@@ -231,6 +237,7 @@ namespace WPFSpectrum
             
             audio.StopRecording();
             timer.Stop();
+            Process.GetCurrentProcess().Kill();
             
         }
     }
