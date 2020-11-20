@@ -52,6 +52,9 @@ namespace WPFSpectrum
             this.Height = cfg.SizeWindow.Y;
             windNotify.textBoxes[0].Text = string.Format("{0}*{1}", cfg.SizeWindow.X, cfg.SizeWindow.Y) ;
             windNotify.CheckBoxs[0].Active = cfg.TomMost;
+          
+
+
             audio = new Audio();
 
 
@@ -76,12 +79,19 @@ namespace WPFSpectrum
                         windNotify = windNotify ?? new WindNotify();
                         windNotify.SetPos();
                         windNotify.Show();
+                        windNotify.Topmost = true;
+                        windNotify.ColorBoxs[0].Text = $"{cfg.ColorLine.A},{cfg.ColorLine.R},{cfg.ColorLine.G},{cfg.ColorLine.B}";
+
                         foreach (var item in windNotify.textBoxes)
                         {
                             windNotify.EventTextChanged(item , EventText_notify);
                         }
                         windNotify.EventMouseDownChanged(windNotify.CheckBoxs[0], EventClick);
 
+                        foreach (var item in windNotify.ColorBoxs)
+                        {
+                            item.TextCh(EventText_notify);
+                        }
 
                         break;
                     case MouseButtons.Middle:
@@ -121,6 +131,11 @@ namespace WPFSpectrum
                 this.Width = x;
                 this.Height = y;               
             }
+            
+            cfg.ColorLine = windNotify.ColorBoxs[0].ColorARGB;
+
+
+
             saveSetting();
         }
 
@@ -155,6 +170,7 @@ namespace WPFSpectrum
             {
                 double size_h = audio.list_array[i];
                 double last_size_h = ControlsLib.GetElementByID(i).SizeHeight;
+                
                 if (size_h > 5)
                 {
                     size_h = this.Height - size_h;
@@ -166,13 +182,15 @@ namespace WPFSpectrum
                 if (size_h > last_size_h)
                 {
                     ControlsLib.GetElementByID(i).SizeHeight = size_h;
-                    // ControlsLib.GetElementByID(i).ColorLine = ColorLib.ColorDev(cfg.ColorLine, cfg.ColorLineA);
+                    
                 }
                 else
                 {
-                    // ControlsLib.GetElementByID(i).SizeHeight -= last_size_h * cfg.Increment * 0.1;
+                     ControlsLib.GetElementByID(i).SizeHeight -= last_size_h * cfg.Increment * 0.1;
                     // ControlsLib.GetElementByID(i).ColorLine = cfg.ColorLine;
                 }
+                ControlsLib.GetElementByID(i).ColorLine = cfg.ColorLine;
+                
             }
 
             

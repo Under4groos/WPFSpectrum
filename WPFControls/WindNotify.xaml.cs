@@ -11,6 +11,7 @@ namespace WPFControls
     {
         public  List<TextBox> textBoxes = new List<TextBox>();
         public List<CheckBox> CheckBoxs = new List<CheckBox>();
+        public List<ColorBox> ColorBoxs = new List<ColorBox>();
         public bool IsActiveWindow
         {
             get; set;
@@ -24,6 +25,8 @@ namespace WPFControls
 
             textBoxes.Add(TextBoxSizeWindow);
             textBoxes.Add(TextBox_Smooth);
+
+            ColorBoxs.Add(Color_box);
 
             CheckBoxs.Add(CBox);
         }
@@ -42,6 +45,8 @@ namespace WPFControls
                     break;
             }           
         }
+  
+        
         // CBox
         public void EventMouseDownChanged(CheckBox tb, MouseButtonEventHandler e, bool d = true)
         {

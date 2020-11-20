@@ -34,7 +34,7 @@ namespace WPFSpectrum
         /// <summary>
         /// Позиция окна с линиями.
         /// </summary>
-        public  Size PositionWindow = new Size(800, 600);
+        public  Size PositionWindow = new Size(1920, 1080);
         /// <summary>
         /// Цвет линий.
         /// </summary>

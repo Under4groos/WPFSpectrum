@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,12 +21,19 @@ namespace WPFControls
     /// </summary>
     public partial class ColorBox : UserControl
     {
+
+        
         public ColorBox()
         {
             InitializeComponent();
+             
         }
 
-        
+        public void TextCh(TextChangedEventHandler TextChanged)
+        {
+            TextBox_color.TextChanged += TextChanged;
+        }
+            
         public Color ColorARGB
         {
             get;set;
@@ -60,16 +68,18 @@ namespace WPFControls
             TextBox_color.Text = Text;
 
             string[] str = Text.Split(new char[] { ',' });
+            Debug.WriteLine(str.ToString());
             int r , g , b , a;
             try
             {
                 if (int.TryParse(str[0], out a) &&
                 int.TryParse(str[1], out r) &&
-                int.TryParse(str[0], out g) &&
-                int.TryParse(str[2], out b))
+                int.TryParse(str[2], out g) &&
+                int.TryParse(str[3], out b))
                 {
                     ColorARGB = Color.FromArgb((byte)a, (byte)r, (byte)g, (byte)b);
                     isColor = true;
+                    Debug.WriteLine(ColorARGB.ToString());
                 }
             }
             catch (Exception)
@@ -79,6 +89,12 @@ namespace WPFControls
             }
             
 
+        }
+
+        private void TextBox_color_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Text = TextBox_color.Text;
+            Update();
         }
     }
 }
