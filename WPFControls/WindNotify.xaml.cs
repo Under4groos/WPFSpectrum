@@ -25,6 +25,8 @@ namespace WPFControls
 
             textBoxes.Add(TextBoxSizeWindow);
             textBoxes.Add(TextBox_Smooth);
+            textBoxes.Add(TextBox_sizeline);
+
 
             ColorBoxs.Add(Color_box);
 
@@ -65,8 +67,8 @@ namespace WPFControls
         public void SetPos()
         {
             Point CurPos = User32Mouse.GetCursorPosition();
-            this.Top = (CurPos.Y - this.Height) + 40;
-            this.Left = CurPos.X - this.Width * 0.5;         
+            this.Top = (CurPos.Y - this.Height) + 10;
+            this.Left = CurPos.X - this.Width * 0.62;         
         }
 
         private void Window_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)

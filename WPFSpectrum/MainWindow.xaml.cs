@@ -15,10 +15,11 @@ namespace WPFSpectrum
 {
     public partial class MainWindow : Window
     {
-        readonly Audio audio;
+        readonly Audio audio = new Audio();
         readonly TimerTick timer = new TimerTick();
         readonly NotifyIcon ntic = new NotifyIcon();
         WindNotify windNotify = new WindNotify();
+        private System.Drawing.Rectangle ScreenSize = Screen.PrimaryScreen.WorkingArea;
         readonly Configuration cfg = new Configuration();
         readonly Json j = new Json();
 
@@ -44,7 +45,8 @@ namespace WPFSpectrum
 
 
 
-
+            this.Top = ScreenSize.Height - this.Height;
+            this.Left = 0;
 
 
 
@@ -52,11 +54,7 @@ namespace WPFSpectrum
             this.Height = cfg.SizeWindow.Y;
             windNotify.textBoxes[0].Text = string.Format("{0}*{1}", cfg.SizeWindow.X, cfg.SizeWindow.Y) ;
             windNotify.CheckBoxs[0].Active = cfg.TomMost;
-          
-
-
-            audio = new Audio();
-
+            windNotify.textBoxes[2].Text = cfg.SizeLineHeight.ToString();
 
             timer.Time = cfg.TimeInterval;
             timer.Tick += Timer_Tick;
@@ -110,7 +108,7 @@ namespace WPFSpectrum
         private void EventClick(object sender, MouseButtonEventArgs e)
         {
             cfg.TomMost = windNotify.CheckBoxs[0].Active;
-            saveSetting();
+            SaveSetting();
         }
 
         void EventText_notify(object sender, TextChangedEventArgs e)
@@ -129,17 +127,28 @@ namespace WPFSpectrum
             {
                 cfg.SizeWindow = new Size(x, y);
                 this.Width = x;
-                this.Height = y;               
+                this.Height = y;
+
+                this.Top = ScreenSize.Height - this.Height;
+                this.Left = 0;
             }
-            
+            string text_sizeline = windNotify.textBoxes[2].Text;
+            if(int.TryParse(text_sizeline, out int s))
+            {
+                cfg.SizeLineHeight = s > 2? s:2;
+                ControlsLib.Clear();
+                ControlsLib.CreateLine(this.Height, this.Width, cfg.SizeLineHeight, ListLine, cfg.ColorLine);
+            }
+
+
             cfg.ColorLine = windNotify.ColorBoxs[0].ColorARGB;
 
 
 
-            saveSetting();
+            SaveSetting();
         }
 
-        public void saveSetting()
+        public void SaveSetting()
         {
             try
             {

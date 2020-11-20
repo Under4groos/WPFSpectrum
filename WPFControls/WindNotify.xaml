@@ -6,13 +6,13 @@
         xmlns:local="clr-namespace:WPFControls"
         mc:Ignorable="d" ShowInTaskbar="False"  
         WindowStyle="None" AllowsTransparency="True" 
-        Title="" Height="450" Width="800" MouseLeave="Window_MouseLeave">
+        Title="" Height="360" Width="445" MouseLeave="Window_MouseLeave">
     <Window.Background>
         <SolidColorBrush Color="#E5232323"></SolidColorBrush>
     </Window.Background>
     <Grid>
         <Label Content="UnderKo" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="White" Height="25" Width="56"/>
-        <Border BorderBrush="#FF17FF00" BorderThickness="0,0,1,0" Margin="0,0,575,0">
+        <Border BorderBrush="#FF17FF00" BorderThickness="0,0,1,0" HorizontalAlignment="Left" Width="225">
             <StackPanel>
                 <Border Background="#19FFFFFF" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="215" Margin="5,5,0,0" BorderBrush="White" BorderThickness="1">
                     <Grid>
@@ -31,6 +31,15 @@
                         <Label Margin="0,0,110,0" Content="Smooth" Foreground="White" FontFamily="Arial Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                     </Grid>
                 </Border>
+                <Border Background="#19FFFFFF" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="215" Margin="5,5,0,0" BorderBrush="White" BorderThickness="1">
+                    <Grid>
+                        <Border BorderBrush="White" BorderThickness="1,1,0,1" Margin="100,2,0,2">
+                            <TextBox x:Name="TextBox_sizeline" TextWrapping="Wrap" Text="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" SelectionTextBrush="White" BorderBrush="{x:Null}" FontFamily="Bahnschrift Light" FontSize="18"/>
+                        </Border>
+                        <Label Margin="0,0,110,0" Content="Size Line" Foreground="White" FontFamily="Arial Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    </Grid>
+                </Border>
+                
                 <Border Background="#19FFFFFF" Height="140" Margin="5,5,5,0" BorderBrush="White" BorderThickness="1">
                     <Grid>
                         <Border BorderBrush="White" BorderThickness="1" Height="{Binding Height, ElementName=label}" VerticalAlignment="Top">

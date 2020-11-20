@@ -39,11 +39,6 @@ namespace WPFControls
             get;set;
         }
 
-        public bool isColor
-        {
-            get; set;
-        } = false;
-
 
         public string Text
         {
@@ -69,26 +64,17 @@ namespace WPFControls
 
             string[] str = Text.Split(new char[] { ',' });
             Debug.WriteLine(str.ToString());
-            int r , g , b , a;
             try
             {
-                if (int.TryParse(str[0], out a) &&
-                int.TryParse(str[1], out r) &&
-                int.TryParse(str[2], out g) &&
-                int.TryParse(str[3], out b))
+                if (int.TryParse(str[0], out int a) &&
+                int.TryParse(str[1], out int r) &&
+                int.TryParse(str[2], out int g) &&
+                int.TryParse(str[3], out int b))
                 {
                     ColorARGB = Color.FromArgb((byte)a, (byte)r, (byte)g, (byte)b);
-                    isColor = true;
-                    Debug.WriteLine(ColorARGB.ToString());
                 }
             }
-            catch (Exception)
-            {
-
-                isColor = false;
-            }
-            
-
+            catch (Exception) { }
         }
 
         private void TextBox_color_TextChanged(object sender, TextChangedEventArgs e)
