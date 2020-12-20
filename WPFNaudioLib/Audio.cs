@@ -113,8 +113,6 @@ namespace WPFNaudioLib
                     case true:
                         list_array[i - 1] = res;
                         break;
-                    default:
-                        break;
                 }
             }
             if( CSmoothHistogram <= 0)
@@ -127,6 +125,7 @@ namespace WPFNaudioLib
                 {
                     list_array = DLib.SmoothHistogram(list_array);
 
+                    //list_array = DLib.SmoothHistogram2(list_array);
                 }
             }  
         }

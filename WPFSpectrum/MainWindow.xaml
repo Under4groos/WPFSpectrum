@@ -7,13 +7,14 @@
         xmlns:WPFControls="clr-namespace:WPFControls;assembly=WPFControls" 
         x:Class="WPFSpectrum.MainWindow"
         mc:Ignorable="d" 
-        WindowStyle="None" AllowsTransparency="True" ShowInTaskbar="True"
-        Title="MainWindow" Height="450" Width="800" SizeChanged="Window_SizeChanged" Closed="Window_Closed">
+        WindowStyle="None" AllowsTransparency="True" ShowInTaskbar="False"
+        Title="" Height="450" Width="800" SizeChanged="Window_SizeChanged" Closed="Window_Closed">
     <Window.Background>
         <SolidColorBrush></SolidColorBrush>
     </Window.Background>
     <Grid>
-        <Grid x:Name="ListLine">
-        </Grid>
+        <Border x:Name="BorderBrushThick" BorderThickness="1">
+            <Grid x:Name="ListLine"/>
+        </Border>
     </Grid>
 </Window>

@@ -16,8 +16,11 @@ namespace WPFControls
         //       0.0,
         //       (o, args) => ((Button)o).Update())
         //   );
-
+        public static void DependencyPropertyRegister()
+        {
         
+        }
+
 
     }
 }

@@ -7,6 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="10">
     <Grid>
-        <Border x:Name="WPFBorder" CornerRadius="2"  Height="5" VerticalAlignment="Bottom" ClipToBounds="True" SnapsToDevicePixels="True" Margin="1,0" Background="White"/>
+        <Border x:Name="WPFBorder" CornerRadius="2"  Height="5" VerticalAlignment="Bottom" ClipToBounds="True" SnapsToDevicePixels="True" Background="White" Margin="1,0"/>
     </Grid>
 </UserControl>
+

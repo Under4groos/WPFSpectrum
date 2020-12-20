@@ -10,6 +10,7 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 using System.Windows.Media;
 using System.Windows.Input;
+using System.Threading;
 
 namespace WPFSpectrum
 {
@@ -18,23 +19,23 @@ namespace WPFSpectrum
         readonly Audio audio = new Audio();
         readonly TimerTick timer = new TimerTick();
         readonly NotifyIcon ntic = new NotifyIcon();
-        WindNotify windNotify = new WindNotify();
-        private System.Drawing.Rectangle ScreenSize = Screen.PrimaryScreen.WorkingArea;
+        WindNotify windNotify = new WindNotify();      
         readonly Configuration cfg = new Configuration();
         readonly Json j = new Json();
+
+    
+
 
         public MainWindow()
         {
             InitializeComponent();
-
+           
             if (j.IsVoidFile())
             {
-                try
-                {
-                    j.OpenJson();
-                    cfg = (Configuration)j.Config;
-                }
-                catch (Exception){}
+
+                j.OpenJson();
+                cfg = j.Config;
+
             }
             else
             {
@@ -45,19 +46,22 @@ namespace WPFSpectrum
 
 
 
-            this.Top = ScreenSize.Height - this.Height;
-            this.Left = 0;
+          
 
 
 
-            this.Width = cfg.SizeWindow.X;
-            this.Height = cfg.SizeWindow.Y;
-            windNotify.textBoxes[0].Text = string.Format("{0}*{1}", cfg.SizeWindow.X, cfg.SizeWindow.Y) ;
+  
+            SetSize(cfg.SizeWindow);
+            SetPos(cfg.PositionWindow);
+
+            windNotify.textBoxes[0].Text = cfg.SizeWindow.ToString();
             windNotify.textBoxes[1].Text = cfg.CountSmoothHistogram.ToString();
             windNotify.textBoxes[2].Text = cfg.SizeLineHeight.ToString();
-            
+            windNotify.textBoxes[3].Text = cfg.PositionWindow.ToString();
+            windNotify.textBoxes[4].Text = cfg.SmoothnessLine.ToString();
 
             windNotify.CheckBoxs[0].Active = cfg.TomMost;
+            windNotify.CheckBoxs[1].Active = cfg.isSmoothness;
 
             timer.Time = cfg.TimeInterval;
             timer.Tick += Timer_Tick;
@@ -87,7 +91,11 @@ namespace WPFSpectrum
                         {
                             windNotify.EventTextChanged(item , EventText_notify);
                         }
-                        windNotify.EventMouseDownChanged(windNotify.CheckBoxs[0], EventClick);
+                        foreach (var item in windNotify.CheckBoxs)
+                        {
+                            windNotify.EventMouseDownChanged(item, EventClick);
+                        }
+                        
 
                         foreach (var item in windNotify.ColorBoxs)
                         {
@@ -107,34 +115,47 @@ namespace WPFSpectrum
             };
 
         }
-
+        private void SetPos(Point p)
+        {
+           
+            this.Left = p.X;
+            this.Top  = p.Y;
+        }
+        private void SetSize(Size p)
+        {
+            this.Width = p.X;
+            this.Height = p.Y;
+        }
         private void EventClick(object sender, MouseButtonEventArgs e)
         {
             cfg.TomMost = windNotify.CheckBoxs[0].Active;
+            cfg.isSmoothness = windNotify.CheckBoxs[1].Active;
+            Debug.WriteLine(cfg.isSmoothness);
             SaveSetting();
         }
 
         void EventText_notify(object sender, TextChangedEventArgs e)
         {
-            string text_Smooth = windNotify.textBoxes[1].Text;
-            if (int.TryParse(text_Smooth, out int c))
-            {
-                audio.CSmoothHistogram = cfg.CountSmoothHistogram = c;               
-            }
+            #region Size window
             string text_size = windNotify.textBoxes[0].Text;
-
             string[] strarray = text_size.Split(new char[] { '*' });
             if (strarray.Length != 2)
                 return;
             if (int.TryParse(strarray[0], out int x) && int.TryParse(strarray[1], out int y))
             {
-                cfg.SizeWindow = new Size(x, y);
-                this.Width = x;
-                this.Height = y;
-
-                this.Top = ScreenSize.Height - this.Height;
-                this.Left = 0;
+                x += 99;
+                SetSize(cfg.SizeWindow = new Size(x, y));
+                SetPos(cfg.PositionWindow);
             }
+            #endregion
+            #region Smooth
+            string text_Smooth = windNotify.textBoxes[1].Text;
+            if (int.TryParse(text_Smooth, out int c))
+            {
+                audio.CSmoothHistogram = cfg.CountSmoothHistogram = c;               
+            }
+            #endregion
+            #region sizeline
             string text_sizeline = windNotify.textBoxes[2].Text;
             if(int.TryParse(text_sizeline, out int s))
             {
@@ -142,12 +163,32 @@ namespace WPFSpectrum
                 ControlsLib.Clear();
                 ControlsLib.CreateLine(this.Height, this.Width, cfg.SizeLineHeight, ListLine, cfg.ColorLine);
             }
+            #endregion
+            #region Position window
+            string[] strarray_positionwind = windNotify.textBoxes[3].Text.Split(new char[] { '*' });
+            if (strarray_positionwind.Length != 2)
+                return;
+            if (int.TryParse(strarray_positionwind[0], out int x_p) && int.TryParse(strarray_positionwind[1], out int y_p))
+            {
+
+                SetPos(cfg.PositionWindow =  new Point(
+                    x_p, 
+                    y_p
+                    ));
+                
 
 
+            }
+            #endregion
+
+            if (double.TryParse(windNotify.textBoxes[4].Text, out double s_))
+            {
+                cfg.SmoothnessLine = s_;
+            }
+
+
+            // TextBoxSmoothing
             cfg.ColorLine = windNotify.ColorBoxs[0].ColorARGB;
-
-
-
             SaveSetting();
         }
 
@@ -163,17 +204,21 @@ namespace WPFSpectrum
 
         void Timer_Tick(object sender ,EventArgs e)
         {
+
             
+
+
+
             int count = 0;
-            int Count_control = ControlsLib.Count();
-            int Count_fft_array = audio.list_array.Count;
-            if (Count_control > Count_fft_array)
-            {
-                count = Count_fft_array;
-            }else if(Count_control < Count_fft_array)
-            {
-                count = Count_control;
-            }
+            int Count_control = count = ControlsLib.Count();
+            //int Count_fft_array = audio.list_array.Count;
+            //if (Count_control > Count_fft_array)
+            //{
+            //    count = Count_fft_array;
+            //}else if(Count_control < Count_fft_array)
+            //{
+            //    count = Count_control;
+            //}
                 
             
 
@@ -193,50 +238,51 @@ namespace WPFSpectrum
                 }
                 if (size_h > last_size_h)
                 {
-                    ControlsLib.GetElementByID(i).SizeHeight = size_h;
+                    switch (cfg.isSmoothness)
+                    {
+                        case true:
+                            ControlsLib.GetElementByID(i).SizeHeight += size_h * cfg.SmoothnessLine;
+                            break;
+                        case false:
+                            ControlsLib.GetElementByID(i).SizeHeight = size_h;
+                            break;
+                        default:
+                            break;
+                    }
+                    
 
                 }
                 else
                 {
-
-
-
-                     ControlsLib.GetElementByID(i).SizeHeight -= last_size_h * cfg.Increment * 0.1;
-                    // ControlsLib.GetElementByID(i).ColorLine = cfg.ColorLine;
+                     ControlsLib.GetElementByID(i).SizeHeight -= last_size_h * cfg.Increment * 0.1;                  
                 }
-                ControlsLib.GetElementByID(i).ColorLine = cfg.ColorLine;
-                
+                ControlsLib.GetElementByID(i).ColorLine = cfg.ColorLine;                
             }
+            ControlsLib.SmoothHistogram(ControlsLib.Lines);
 
-            
-            this.Topmost = cfg.TomMost;
-            //if (windNotify.IsActive == true)
-            //{
-            //    ControlsLib.ControlWindNotifysetColor(BorderIsActiveSettingWind, 255, 255, 0, 0);
-            //}
-            //else
-            //{
-            //    ControlsLib.ControlWindNotifysetColor(BorderIsActiveSettingWind, 0, 0, 0, 0);
-            //}
-
+            this.Topmost = cfg.TomMost;          
         }
         private void ListLabel_Loaded(object sender, RoutedEventArgs e)
-        {
-            ControlsLib.CreateLine(this.Height,this.Width, cfg.SizeLineHeight, ListLine, cfg.ColorLine);
-        }
+            => Dispatcher.BeginInvoke(
+                new ThreadStart(delegate {
+                    ControlsLib.CreateLine(this.Height, this.Width, cfg.SizeLineHeight, ListLine, cfg.ColorLine);
+                }));
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            ControlsLib.Clear();
-            ControlsLib.CreateLine(this.Height, this.Width, cfg.SizeLineHeight, ListLine , cfg.ColorLine);
-
+            //ControlsLib.Clear();
+            Dispatcher.BeginInvoke(
+                new ThreadStart(delegate {
+                    ControlsLib.CreateLine(this.Height, this.Width, cfg.SizeLineHeight, ListLine, cfg.ColorLine);
+                }));
+            
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
             
-            audio.StopRecording();
-            timer.Stop();
+            //audio.StopRecording();
+            //timer.Stop();
             Process.GetCurrentProcess().Kill();
             
         }

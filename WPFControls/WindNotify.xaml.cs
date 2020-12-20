@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -21,16 +22,18 @@ namespace WPFControls
             InitializeComponent();
             IsActiveWindow = true;
 
-            Label_poswind.Content = string.Format("Position window {0} , {1}", Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            Label_poswind.Content = string.Format("Position window ScreenSize: {0}x{1}", Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
 
             textBoxes.Add(TextBoxSizeWindow);
             textBoxes.Add(TextBox_Smooth);
             textBoxes.Add(TextBox_sizeline);
-
+            textBoxes.Add(TextBoxPositionWindow);
+            textBoxes.Add(TextBoxSmoothing);
 
             ColorBoxs.Add(Color_box);
 
             CheckBoxs.Add(CBox);
+            CheckBoxs.Add(SmoothingCheckBox);
         }
         
         public void EventTextChanged(TextBox tb, TextChangedEventHandler e , bool d = true) 
@@ -47,9 +50,7 @@ namespace WPFControls
                     break;
             }           
         }
-  
-        
-        // CBox
+
         public void EventMouseDownChanged(CheckBox tb, MouseButtonEventHandler e, bool d = true)
         {
             switch (d)
@@ -67,7 +68,11 @@ namespace WPFControls
         public void SetPos()
         {
             Point CurPos = User32Mouse.GetCursorPosition();
-            this.Top = (CurPos.Y - this.Height) + 10;
+
+            double d = Screen.PrimaryScreen.Bounds.Height - Screen.PrimaryScreen.WorkingArea.Height;
+            Debug.WriteLine(d);
+            Size sizescreenall = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            this.Top = (sizescreenall.Height - this.Height) - d;
             this.Left = CurPos.X - this.Width * 0.62;         
         }
 
@@ -76,6 +81,12 @@ namespace WPFControls
             IsActiveWindow = false;
             this.Hide();
             
+        }
+
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Process.GetCurrentProcess().Kill();
         }
 
         // private void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e) => IsActiveWindow = true;

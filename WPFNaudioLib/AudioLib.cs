@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 namespace WPFNaudioLib
 {
+    
     ///  Тут я хуй знает что да как... 
     class AudioLib
     {

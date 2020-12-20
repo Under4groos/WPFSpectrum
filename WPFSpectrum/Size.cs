@@ -39,5 +39,10 @@ namespace WPFSpectrum
             => new Size(c1.X - c2.X, c1.Y - c2.Y);
         public static Size operator *(Size c1, double d)
             => new Size(c1.X * d, c1.Y * d);
+
+        public override string ToString()
+        {
+            return $"{X}*{Y}";
+        }
     }
 }

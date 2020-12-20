@@ -13,7 +13,7 @@ namespace WPFNaudioLib
         {
             List<double> smoothedValues = new List<double>();
             smoothedValues.AddRange(originalValues);
-            double[] mask = new double[] { 0.25, 0.5, 0.25 };
+            double[] mask = new double[] { 0.25, 0.5, 0.25 };           
             for (int bin = 1; bin < originalValues.Count - 2; bin++)
             {
                 double smoothedValue = 0;
@@ -25,6 +25,22 @@ namespace WPFNaudioLib
             }
             return smoothedValues;
         }
+        public static List<double> SmoothHistogram2(List<double> originalValues)
+        {
+            List<double> smoothedValues = new List<double>();
+            smoothedValues.AddRange(originalValues);            
+            for (int bin = 2; bin < originalValues.Count - 2; bin++)
+            {
+
+                // smooth_hist[i]=(hist[i-2]+hist[i-1]+hist[i]+hist[i+1]+hist[i+2])/5
+                smoothedValues[bin] = (originalValues[bin - 2] + originalValues[bin - 1] + originalValues[bin]
+                    + originalValues[bin + 1] + originalValues[bin + 2])/5
+
+                    ;
+            }
+            return smoothedValues;
+        }
+
         public static double Lerp(double a, double b, double t)
         {
             return a + (b - a) * t;

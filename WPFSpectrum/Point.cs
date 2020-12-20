@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WPFSpectrum
 {
-    class Point
+    public class Point
     {
         public double X
         {
@@ -34,5 +34,11 @@ namespace WPFSpectrum
             => new Point(c1.X - c2.X, c1.Y - c2.Y);
         public static Point operator *(Point c1, double d)
             => new Point(c1.X * d, c1.Y * d);
+
+        public override string ToString()
+        {
+            return $"{X}*{Y}";
+        }
+
     }
 }

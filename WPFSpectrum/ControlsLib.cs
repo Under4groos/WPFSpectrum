@@ -20,7 +20,7 @@ namespace WPFSpectrum
         }
 
 
-        readonly static List<WPFControls.WPFLine> Lines = new List<WPFControls.WPFLine>();
+        public readonly static List<WPFControls.WPFLine> Lines = new List<WPFControls.WPFLine>();
         static Grid GR;
         /// <summary>
         /// Получить из листа элемент по его ID
@@ -62,13 +62,14 @@ namespace WPFSpectrum
         public static void CreateLine(
            double SizeWindowHeight, double SizeWindowWidth, int SizePanelWidth,Grid grid , Color color)
         {
+            Clear();
             GR = grid;
             int count = (int)SizeWindowWidth / SizePanelWidth;
-            double size_ = SizeWindowWidth / count;
+            int size_ = (int)(SizeWindowWidth / count);
             Debug.WriteLine($"Size:{size_} Count:{count}");
             for (int i = 0; i < count; i++)
             {
-                WPFControls.WPFLine wPFLine = new WPFControls.WPFLine
+                WPFLine wPFLine = new WPFLine
                 {
                     Height = SizeWindowHeight,
                     Width = size_,
@@ -83,5 +84,35 @@ namespace WPFSpectrum
                 Lines.Add(wPFLine);
             }
         }
+
+        public static void SetActiveBorder(Border b, bool a)
+        {
+            b.BorderBrush = a ? new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)) :
+                new SolidColorBrush(Color.FromArgb(0, 255, 0, 0));
+        }
+        public static void SmoothHistogram(List<WPFLine> originalValues)
+        {
+            List<double> smoothedValues = new List<double>();
+            foreach (var item in originalValues)
+            {
+                smoothedValues.Add(item.SizeHeight);
+            }
+            
+            double[] mask = new double[] { 0.25, 0.5, 0.25 };
+            for (int bin = 1; bin < originalValues.Count - 2; bin++)
+            {
+                double smoothedValue = 0;
+                for (int i = 0; i < mask.Length; i++)
+                {
+                    smoothedValue += originalValues[bin - 1 + i].SizeHeight * mask[i];
+                }
+                smoothedValues[bin] = (int)smoothedValue;
+            }
+            for (int i = 0; i < originalValues.Count; i++)
+            {
+                originalValues[i].SizeHeight = smoothedValues[i];
+            }
+        }
+
     }
 }

@@ -19,17 +19,21 @@ namespace WPFSpectrum
         string NameFile
         {
             get; set;
-        } = "Data.json";
-        public void SaveJson()
+        } = "Configuration.json";
+        public async void SaveJson()
         {
             if (Config == null)
                 return;
+          
             string output = JsonConvert.SerializeObject(Config);
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(NameFile))
             {
-                file.WriteLine(output);
+
+
+                await file.WriteAsync(output);
+
                 string date = DateTime.Now.ToLocalTime().ToString();
-                Debug.WriteLine($"[Config {date}] Save new config\n");
+                Debug.WriteLine($"[{date}] Сохранение конфигурации.\n => {NameFile}");
             }
         }
         public bool IsVoidFile()
