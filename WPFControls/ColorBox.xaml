@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:WPFControls"
              mc:Ignorable="d" Height="31.625" Width="128.333">
     <Grid>
-        <Border BorderBrush="White" BorderThickness="1" CornerRadius="2">
+        <Border>
             <TextBox x:Name="TextBox_color" TextWrapping="Wrap" Text="0,0,0,0"   Background="{x:Null}" Foreground="White" SelectionTextBrush="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  BorderBrush="{x:Null}" FontFamily="Arial Black" FontSize="18" TextChanged="TextBox_color_TextChanged"/>
         </Border>
     </Grid>

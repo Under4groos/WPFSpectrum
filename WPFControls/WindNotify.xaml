@@ -6,67 +6,90 @@
         xmlns:local="clr-namespace:WPFControls"
         mc:Ignorable="d" ShowInTaskbar="False"  
         WindowStyle="None" AllowsTransparency="True" 
-        Title="" Height="370" Width="530" MouseLeave="Window_MouseLeave">
+        Title="" Height="280" Width="925" MouseLeave="Window_MouseLeave">
     <Window.Background>
         <SolidColorBrush Color="#E5232323"></SolidColorBrush>
     </Window.Background>
     <Grid>
         <Label Content="UnderKo" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="White" Height="25" Width="56"/>
-        <Border BorderBrush="#FF17FF00" BorderThickness="0,0,1,0" HorizontalAlignment="Left" Width="315">
+        <Border HorizontalAlignment="Left" Width="450" VerticalAlignment="Top" Height="275" Margin="0,2,0,0">
             <StackPanel>
-                <Border Background="#19FFFFFF" CornerRadius="2" VerticalAlignment="Top" Height="40" Margin="2,5,2,0" BorderBrush="White" BorderThickness="1">
-                    <Grid>
-                        <Border BorderBrush="White" CornerRadius="2" BorderThickness="1,1,0,1" Margin="100,2,0,2">
-                            <TextBox Name="TextBoxSizeWindow" TextWrapping="Wrap" Text="800*600" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" SelectionTextBrush="White" BorderBrush="{x:Null}" FontFamily="Bahnschrift Light" FontSize="18"/>
-                        </Border>
-                        <Label Margin="0,0,0,0" Content="Size window" Foreground="White" FontFamily="Arial Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left"/>
-                    </Grid>
-                </Border>
-                <!---->
-                <Border Background="#19FFFFFF" CornerRadius="2" VerticalAlignment="Top" Height="40"  Margin="2,5,2,0" BorderBrush="White" BorderThickness="1">
-                    <Grid>
-                        <Border BorderBrush="White" CornerRadius="2" BorderThickness="1,1,0,1" Margin="100,2,0,2">
-                            <TextBox x:Name="TextBox_Smooth" TextWrapping="Wrap" Text="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" SelectionTextBrush="White" BorderBrush="{x:Null}" FontFamily="Bahnschrift Light" FontSize="18"/>
-                        </Border>
-                        <Label Margin="0,0,0,0" Content="Smooth" Foreground="White" FontFamily="Arial Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left"/>
-                    </Grid>
-                </Border>
-                <Border Background="#19FFFFFF" CornerRadius="2" VerticalAlignment="Top" Height="40"  Margin="2,5,2,0" BorderBrush="White" BorderThickness="1">
-                    <Grid>
-                        <Border BorderBrush="White" CornerRadius="2" BorderThickness="1,1,0,1" Margin="100,2,0,2">
-                            <TextBox x:Name="TextBox_sizeline" TextWrapping="Wrap" Text="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" SelectionTextBrush="White" BorderBrush="{x:Null}" FontFamily="Bahnschrift Light" FontSize="18"/>
-                        </Border>
-                        <Label Margin="0,0,0,0" Content="Size Line" Foreground="White" FontFamily="Arial Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left"/>
-                    </Grid>
-                </Border>
-
-                <Border Background="#19FFFFFF" Height="70" CornerRadius="2" Margin="2,5,2,0" BorderBrush="White" BorderThickness="1">
+                <Border Background="#19FFFFFF" Height="55" CornerRadius="2" Margin="2,0,2,0" BorderBrush="White" BorderThickness="1" VerticalAlignment="Top">
                     <Grid>
                         <Border BorderBrush="White" BorderThickness="0,0,0,1" Height="{Binding Height, ElementName=label}" VerticalAlignment="Top">
-                            <Label x:Name="Label_poswind" Content="Position window" FontFamily="Arial Black" Foreground="White"/>
+                            <Label x:Name="Label_poswind" Content="Position window" FontFamily="Arial Black" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                         </Border>
-                        <Border BorderBrush="White" CornerRadius="2" BorderThickness="1,1,1,1" Margin="2,29,2,2">
+                        <Border Margin="0,26,0,0">
                             <TextBox Name="TextBoxPositionWindow" TextWrapping="Wrap" Text="800*600" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" SelectionTextBrush="White" BorderBrush="{x:Null}" FontFamily="Bahnschrift Light" FontSize="18"/>
                         </Border>
 
                     </Grid>
                 </Border>
-                <local:CheckBox x:Name="CBox" Text="Поверх остальных окон" Height="30" Width="Auto" Margin="2,5,2,0"/>
-                <Border Background="#19FFFFFF" CornerRadius="2" VerticalAlignment="Top" Height="75"  Margin="2,5,2,0" BorderBrush="White" BorderThickness="1">
+
+                <Border Background="#19FFFFFF" CornerRadius="2" VerticalAlignment="Top" Height="55" Margin="2,5,2,0" BorderBrush="White" BorderThickness="1">
                     <Grid>
-                        <local:CheckBox x:Name="SmoothingCheckBox" Active="False" Text="Плавноесть" Height="30" Width="Auto" Margin="2,2,2,0" VerticalAlignment="Top"/>
-                        <Border BorderBrush="White" CornerRadius="2" BorderThickness="1,1,1,1" Margin="2,0,2,2" VerticalAlignment="Bottom" Height="37">
-                            <TextBox Name="TextBoxSmoothing" TextWrapping="Wrap" Text="0.05" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" SelectionTextBrush="White" BorderBrush="{x:Null}" FontFamily="Bahnschrift Light" FontSize="18"/>
+                        <Border VerticalAlignment="Top" Margin="0,25,0,0" Height="30">
+                            <TextBox Name="TextBoxSizeWindow" TextWrapping="Wrap" Text="800*600" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" SelectionTextBrush="White" BorderBrush="{x:Null}" FontFamily="Bahnschrift Light" FontSize="18"/>
+                        </Border>
+                        <Border BorderBrush="White" Height="25" BorderThickness="0,0,0,1" VerticalAlignment="Top">
+                            <Label Content="Size window" Foreground="White" FontFamily="Arial Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                         </Border>
                     </Grid>
                 </Border>
+                <!---->
 
-                <local:ColorBox x:Name="Color_box" Height="35" Width="Auto" Margin="2,5,2,0"/>
+                <Border Background="#19FFFFFF" Height="55"  CornerRadius="2" VerticalAlignment="Top" BorderBrush="White" BorderThickness="1" Margin="2,5,2,0">
+                    <Grid>
+                        <Border VerticalAlignment="Top" BorderThickness="0,0,0,1" BorderBrush="White">
+                            <Label Content="Size Line" Foreground="White" FontFamily="Arial Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                        </Border>
+
+                        <Border VerticalAlignment="Top" Margin="0,25,0,0">
+                            <TextBox x:Name="TextBox_sizeline" TextWrapping="Wrap" Text="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" SelectionTextBrush="White" BorderBrush="{x:Null}" FontFamily="Bahnschrift Light" FontSize="18" Height="29"/>
+                        </Border>
+
+                    </Grid>
+                </Border>
+
+
+                <local:CheckBox x:Name="CBox" Text="Поверх остальных окон" Height="30" Width="Auto"  VerticalAlignment="Top" Margin="2,5,2,0"/>
+
+                <Border Background="#19FFFFFF" CornerRadius="2" BorderThickness="1" Height="55" BorderBrush="White" VerticalAlignment="Top" Margin="2,5,2,0">
+                    <Grid>
+                        <Border  BorderThickness="0,0,0,1" BorderBrush="White" Height="25" VerticalAlignment="Top">
+                            <Label Content="Color line" Foreground="White" FontFamily="Arial Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                        </Border>
+                        <local:ColorBox x:Name="Color_box" Height="29" Width="Auto" Margin="2,25,2,0" VerticalAlignment="Top"/>
+                    </Grid>
+                </Border>
 
             </StackPanel>
         </Border>
-        <Border VerticalAlignment="Top" Background="White" Height="23" Margin="0,5,2,0" HorizontalAlignment="Right" Width="48" CornerRadius="2" MouseDown="Border_MouseDown">
-            <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Close" Padding="0"></Label>
+        <Border VerticalAlignment="Top" Background="White" Height="22" Margin="0,2,2,0" HorizontalAlignment="Right" Width="36" CornerRadius="12,12,5,5" MouseDown="Border_MouseDown" BorderBrush="Red" BorderThickness="1">
+            <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="X" Padding="1,0,0,0" FontFamily="Comic Sans MS"/>
         </Border>
+
+
+        <Border Background="#19FFFFFF" CornerRadius="2" VerticalAlignment="Top" Width="255" Height="135" BorderBrush="White" BorderThickness="1" HorizontalAlignment="Left" Margin="460,2,0,0">
+            <StackPanel>
+                <local:CheckBox x:Name="SmoothingCheckBox" Active="False" Text="Плавноесть" Height="30" Width="Auto" VerticalAlignment="Top"/>
+                <Border Background="#19FFFFFF" Height="55" CornerRadius="2" VerticalAlignment="Top"  BorderBrush="White" BorderThickness="1" Margin="10,5,0,0" >
+                    <StackPanel>
+                        <Border BorderBrush="White" VerticalAlignment="Top" Height="24" BorderThickness="0,0,0,1">
+                            <Label Content="Smooth" Foreground="White" FontFamily="Arial Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left"/>
+                        </Border>
+                        <Border VerticalAlignment="Top" Height="29">
+                            <TextBox x:Name="TextBox_Smooth" TextWrapping="Wrap" Text="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" SelectionTextBrush="White" BorderBrush="{x:Null}" FontFamily="Bahnschrift Light" FontSize="18"/>
+                        </Border>
+
+                    </StackPanel>
+                </Border>
+
+                <Border BorderBrush="White" CornerRadius="2" BorderThickness="1,1,1,1" VerticalAlignment="Top" Height="37" Margin="10,5,0,0">
+                    <TextBox Name="TextBoxSmoothing" TextWrapping="Wrap" Text="0.05" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" SelectionTextBrush="White" BorderBrush="{x:Null}" FontFamily="Bahnschrift Light" FontSize="18"/>
+                </Border>
+            </StackPanel>
+        </Border>
+
     </Grid>
 </Window>
