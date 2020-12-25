@@ -25,7 +25,7 @@ namespace WPFSpectrum
         /// <summary>
         /// Скорость плавного подьема 
         /// </summary>
-        public double SmoothnessLine = 0.05;
+        public double SmoothnessLine = 0.09;
         /// <summary>
         /// Интервал таймера.
         /// </summary>
@@ -37,11 +37,11 @@ namespace WPFSpectrum
         /// <summary>
         /// Размер окна с линиями.
         /// </summary>
-        public Size SizeWindow = new Size(1200, 600);
+        public Size SizeWindow = new Size(500, 300);
         /// <summary>
         /// Позиция окна с линиями.
         /// </summary>
-        public Point PositionWindow = new Point(1920, 1080);
+        public Point PositionWindow = new Point(50, 50);
         /// <summary>
         /// Цвет линий.
         /// </summary>

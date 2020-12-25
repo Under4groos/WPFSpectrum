@@ -70,10 +70,12 @@ namespace WPFControls
             Point CurPos = User32Mouse.GetCursorPosition();
 
             double d = Screen.PrimaryScreen.Bounds.Height - Screen.PrimaryScreen.WorkingArea.Height;
-            Debug.WriteLine(d);
-            Size sizescreenall = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-            this.Top = (sizescreenall.Height - this.Height) - d;
-            this.Left = CurPos.X - this.Width * 0.62;         
+
+     
+            double w = Screen.PrimaryScreen.Bounds.Width;
+            double h = Screen.PrimaryScreen.Bounds.Height;
+            this.Top = h - this.Height;
+            this.Left = w/2 - this.Width/2;         
         }
 
         private void Window_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)

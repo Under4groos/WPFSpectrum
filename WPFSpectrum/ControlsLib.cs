@@ -18,7 +18,15 @@ namespace WPFSpectrum
         {         
                 ui.BorderBrush = new System.Windows.Media.SolidColorBrush(Color.FromArgb(a, r, g, b));
         }
+        public static void IntDec(double num , double min)
+        {
 
+            for (int i = 0; i < Count(); i++)
+            {
+                GetElementByID(i).SizeHeight -= num>min?num:min;
+            }
+
+        }
 
         public readonly static List<WPFControls.WPFLine> Lines = new List<WPFControls.WPFLine>();
         static Grid GR;
@@ -64,7 +72,9 @@ namespace WPFSpectrum
         {
             Clear();
             GR = grid;
-            int count = (int)SizeWindowWidth / SizePanelWidth;
+            int sw = (int)SizeWindowWidth>0? (int)SizeWindowWidth:1;
+            int sp = SizePanelWidth >0? SizePanelWidth:1;
+            int count = sw / sp;           
             int size_ = (int)(SizeWindowWidth / count);
             Debug.WriteLine($"Size:{size_} Count:{count}");
             for (int i = 0; i < count; i++)
@@ -84,7 +94,14 @@ namespace WPFSpectrum
                 Lines.Add(wPFLine);
             }
         }
-
+        public static void Default(double Incr = 1.8)
+        {
+            for (int i = 0; i < Count(); i++)
+            {
+                
+                GetElementByID(i).SizeHeight = 5;
+            }
+        }
         public static void SetActiveBorder(Border b, bool a)
         {
             b.BorderBrush = a ? new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)) :

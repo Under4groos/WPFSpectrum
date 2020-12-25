@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WPFControls"
         mc:Ignorable="d" ShowInTaskbar="False"  
         WindowStyle="None" AllowsTransparency="True" 
-        Title="" Height="280" Width="925" MouseLeave="Window_MouseLeave">
+        Title="" Height="320" Width="715" MouseLeave="Window_MouseLeave">
     <Window.Background>
         <SolidColorBrush Color="#E5232323"></SolidColorBrush>
     </Window.Background>
@@ -65,8 +65,8 @@
 
             </StackPanel>
         </Border>
-        <Border VerticalAlignment="Top" Background="White" Height="22" Margin="0,2,2,0" HorizontalAlignment="Right" Width="36" CornerRadius="12,12,5,5" MouseDown="Border_MouseDown" BorderBrush="Red" BorderThickness="1">
-            <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="X" Padding="1,0,0,0" FontFamily="Comic Sans MS"/>
+        <Border VerticalAlignment="Bottom" Background="White" Height="35" HorizontalAlignment="Center" Width="125" CornerRadius="8" MouseDown="Border_MouseDown" BorderThickness="1" BorderBrush="White">
+            <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Close" Padding="1,0,0,0" FontFamily="Comic Sans MS"/>
         </Border>
 
 
@@ -86,7 +86,7 @@
                 </Border>
 
                 <Border BorderBrush="White" CornerRadius="2" BorderThickness="1,1,1,1" VerticalAlignment="Top" Height="37" Margin="10,5,0,0">
-                    <TextBox Name="TextBoxSmoothing" TextWrapping="Wrap" Text="0.05" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" SelectionTextBrush="White" BorderBrush="{x:Null}" FontFamily="Bahnschrift Light" FontSize="18"/>
+                    <TextBox x:Name="TextBoxSmoothing" TextWrapping="Wrap" Text="0.05" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" SelectionTextBrush="White" BorderBrush="{x:Null}" FontFamily="Bahnschrift Light" FontSize="18"/>
                 </Border>
             </StackPanel>
         </Border>

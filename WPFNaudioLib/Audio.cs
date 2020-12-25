@@ -27,7 +27,11 @@ namespace WPFNaudioLib
         IWaveIn waveIn;
         AudioLib audio;
         public  List<double> list_array = new List<double>();
-        
+
+        public bool GetStatus
+        {
+            get; set;
+        } = false;
         public int Length
         {
             get; set;
@@ -54,8 +58,10 @@ namespace WPFNaudioLib
         /// </summary>
         public void StartRecording()
         {
+            if (GetStatus)
+                return;
             AudioDevice.SearchActDeviceID();
-            audio = new AudioLib(Length);
+            audio = audio == null ?new AudioLib(Length): audio;
             audio.FftCalculated += new EventHandler<FftEventArgs>(FFT);
             audio.PerformFFT = true;
 
@@ -64,16 +70,22 @@ namespace WPFNaudioLib
                 waveIn = new WasapiLoopbackCapture(AudioDevice.MMDeviceCollection[AudioDevice.MMDeviceID]);
                 waveIn.DataAvailable += WaveIn_DataAvailable; ;
                 waveIn.StartRecording();
+                GetStatus = true;
             }
+
         }
         /// <summary>
         /// Остановка записи.
         /// </summary>
         public void StopRecording()
         {
-            waveIn.StopRecording();
+            if (GetStatus == true)
+            {
+                waveIn.StopRecording();
 
-            audio = null;
+                //audio = null;
+                GetStatus = false;
+            }           
         }
 
         private void WaveIn_DataAvailable(object sender, WaveInEventArgs e)
