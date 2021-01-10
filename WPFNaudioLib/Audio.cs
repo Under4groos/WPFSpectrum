@@ -45,7 +45,10 @@ namespace WPFNaudioLib
         {
             get; set;
         } = -90;
-
+        public double Dada
+        {
+            get; set;
+        } = 12000;
 
         public Audio()
         {
@@ -115,7 +118,7 @@ namespace WPFNaudioLib
             {
                 double _d = DLib.Deb(e.Result[i].X, e.Result[i].Y);
 
-                double res = DLib.Map(_d, 0, Db, 0, 12000);
+                double res = DLib.Map(_d, 0, Db, 0, Dada);
 
                 switch (list_array.Count == Length_FFT)
                 {

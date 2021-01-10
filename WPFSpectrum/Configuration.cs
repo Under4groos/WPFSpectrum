@@ -46,14 +46,15 @@ namespace WPFSpectrum
         /// Цвет линий.
         /// </summary>
         public Color ColorLine = Color.FromArgb(255, 44, 255, 71);
-        /// <summary>
-        /// Промежуточный цвет A.
-        /// </summary>
-        public Color ColorLineA = Color.FromArgb(255, 255, 0, 0);
-        /// <summary>
-        /// Промежуточный цвет B.
-        /// </summary>
-        public Color ColorLineB = Color.FromArgb(255, 33, 255, 0);
+
+        public double Db
+        {
+            get; set;
+        } = -90;
+        public double Dada
+        {
+            get; set;
+        } = 12000;
 
         public bool TomMost = true;
 

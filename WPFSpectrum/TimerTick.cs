@@ -27,7 +27,7 @@ namespace WpfSpectrum
         /// <summary>
         /// Подписка на событие.
         /// </summary>
-        public EventHandler Tick;
+        public event EventHandler Tick;
         public TimerTick() => Time = 1;           
         
         /// <summary>

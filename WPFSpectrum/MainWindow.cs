@@ -1,35 +1,33 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Forms;
+using System.Windows.Input;
+using WPFControls;
 using WPFNaudioLib;
 using WpfSpectrum;
-using WPFControls;
-using System.Windows.Forms;
-using System.Collections.Generic;
-using System.Windows.Controls;
-using System.Diagnostics;
-using Newtonsoft.Json;
-using System.Windows.Media;
-using System.Windows.Input;
-using System.Threading;
 
 namespace WPFSpectrum
 {
     public partial class MainWindow : Window
     {
+        #region new Class: Audio TimerTick NotifyIcon WindNotify Configuration Json
         readonly Audio audio = new Audio();
         readonly TimerTick timer = new TimerTick();
         readonly NotifyIcon ntic = new NotifyIcon();
         WindNotify windNotify = new WindNotify();      
         Configuration cfg = new Configuration();
         readonly Json j = new Json();
-
-    
+        #endregion  
 
 
         public MainWindow()
         {
             InitializeComponent();
-           
+            #region OpenNewSetttingProgram
             if (j.IsVoidFile())
             {
 
@@ -53,11 +51,12 @@ namespace WPFSpectrum
             }
 
             Setting();
+            #endregion
 
             timer.Time = cfg.TimeInterval;
             timer.Tick += Timer_Tick;
             timer.Start();
-
+            
             audio.StartRecording();
             audio.CSmoothHistogram = cfg.CountSmoothHistogram;
 
@@ -68,6 +67,7 @@ namespace WPFSpectrum
                 switch (e.Button)
                 {
                     case MouseButtons.Left:
+                        
                         break;
                     case MouseButtons.None:
                         break;
@@ -75,7 +75,7 @@ namespace WPFSpectrum
                         windNotify = windNotify ?? new WindNotify();
                         windNotify.SetPos();
                         windNotify.Show();
-                        windNotify.Topmost = true;
+                        
                         windNotify.ColorBoxs[0].Text = $"{cfg.ColorLine.A},{cfg.ColorLine.R},{cfg.ColorLine.G},{cfg.ColorLine.B}";
 
                         foreach (var item in windNotify.textBoxes)
@@ -86,13 +86,11 @@ namespace WPFSpectrum
                         {
                             windNotify.EventMouseDownChanged(item, EventClick);
                         }
-                        
-
                         foreach (var item in windNotify.ColorBoxs)
                         {
                             item.TextCh(EventText_notify);
                         }
-
+                        windNotify.Topmost = true;
                         break;
                     case MouseButtons.Middle:
                         break;
@@ -103,8 +101,7 @@ namespace WPFSpectrum
                     default:
                         break;
                 }
-            };
-
+            };  
         }
 
         public void Setting()
@@ -120,12 +117,16 @@ namespace WPFSpectrum
 
             windNotify.CheckBoxs[0].Active = cfg.TomMost;
             windNotify.CheckBoxs[1].Active = cfg.isSmoothness;
-
+            
             Dispatcher.BeginInvoke(
                new ThreadStart(delegate {
                    ControlsLib.CreateLine(this.Height, this.Width, cfg.SizeLineHeight, ListLine, cfg.ColorLine);
                }));
             timer.Time = cfg.TimeInterval;
+
+            audio.Dada = cfg.Dada;
+            audio.Db = cfg.Db;
+
         }
         private void SetPos(Point p)
         {
@@ -207,11 +208,12 @@ namespace WPFSpectrum
         {
             j.Config = cfg;
             j.SaveJson();
-        }
 
+        }
+ 
         void Timer_Tick(object sender ,EventArgs e)
         {
-            
+            this.Topmost = cfg.TomMost;
             switch (AudioDevice.IsWorking())
             {
                 case true:
@@ -224,17 +226,19 @@ namespace WPFSpectrum
                         j.OpenJson();
                         cfg = j.Config;
                         Setting();
-                    }
-                    double min = this.Height;
-                    audio.StartRecording();
-                    int count = 0;
-                    int Count_control = count = ControlsLib.Count();
 
-                    for (int i = 0; i < count; i++)
+                    }
+                    if (audio.GetStatus == false)
+                    {
+                        ControlsLib.IsMinAll = true;
+                    }
+                    audio.StartRecording();
+
+                    for (int i = 0; i < ControlsLib.Count(); i++)
                     {
                         double size_h = audio.list_array[i];
                         double last_size_h = ControlsLib.GetElementByID(i).SizeHeight;
-
+                        double len_double = last_size_h;
                         if (size_h > 5)
                         {
                             size_h = this.Height - size_h;
@@ -248,10 +252,10 @@ namespace WPFSpectrum
                             switch (cfg.isSmoothness)
                             {
                                 case true:
-                                    ControlsLib.GetElementByID(i).SizeHeight += size_h * cfg.SmoothnessLine;
+                                    len_double += size_h * cfg.SmoothnessLine;
                                     break;
                                 case false:
-                                    ControlsLib.GetElementByID(i).SizeHeight = size_h;
+                                    len_double = size_h;
                                     break;
                                 default:
                                     break;
@@ -259,29 +263,44 @@ namespace WPFSpectrum
                         }
                         else
                         {
-                            ControlsLib.GetElementByID(i).SizeHeight -= last_size_h * cfg.Increment * 0.1;
+                            len_double -= cfg.Increment;
                         }
                         ControlsLib.GetElementByID(i).ColorLine = cfg.ColorLine;
-
-                        if (min > ControlsLib.GetElementByID(i).SizeHeight)
-                        {
-                            min = ControlsLib.GetElementByID(i).SizeHeight;
-                        }
+                        ControlsLib.GetElementByID(i).SizeHeight = len_double;
                     }
-                    ControlsLib.IntDec(min, 5);
+
                     ControlsLib.SmoothHistogram(ControlsLib.Lines);
-                    this.Topmost = cfg.TomMost;
+
                     break;
                 case false:
-                    if (audio.GetStatus)
-                        ControlsLib.Default();
-                    audio.StopRecording();                   
+                    #region Не трогай блять Оно и так зАибись робит!
+                    int Csi = ControlsLib.Count() * 5;
+                    int si = 0;
+                    if (ControlsLib.IsMinAll)
+                    {
+                        
+
+                        for (int i = 0; i < ControlsLib.Count(); i++)
+                        {
+
+                            double d = ControlsLib.GetElementByID(i).SizeHeight -= cfg.Increment;
+
+                            si += d < 5? 5 : (int)d;
+                        }
+                        if (Csi == si)
+                            ControlsLib.IsMinAll = false;   
+                    }
+                    else 
+                    {
+                        audio.StopRecording();
+                    }
+                    #endregion
                     break;
                 default:
                     break;
             }
+            
 
-                  
         }
         private void ListLabel_Loaded(object sender, RoutedEventArgs e)
             => Dispatcher.BeginInvoke(
@@ -301,11 +320,7 @@ namespace WPFSpectrum
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            
-            //audio.StopRecording();
-           
-            Process.GetCurrentProcess().Kill();
-            
+            Process.GetCurrentProcess().Kill();          
         }
     }
 }

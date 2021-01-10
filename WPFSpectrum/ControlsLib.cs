@@ -18,15 +18,27 @@ namespace WPFSpectrum
         {         
                 ui.BorderBrush = new System.Windows.Media.SolidColorBrush(Color.FromArgb(a, r, g, b));
         }
-        public static void IntDec(double num , double min)
+        public static bool IsMinAll
         {
+            get; set;
+        } = true;
+        //public static bool IsMinAllInt(int min)
+        //{
+        //    bool b = false;
+        //    for (int i = 0; i < Count(); i++)
+        //    {
+        //        if (GetElementByID(i).SizeHeight > min)
+        //        {
 
-            for (int i = 0; i < Count(); i++)
-            {
-                GetElementByID(i).SizeHeight -= num>min?num:min;
-            }
-
-        }
+        //            b = true;
+        //        }
+        //        else
+        //        {
+        //            b = false;
+        //        }
+        //    }
+        //    return b;
+        //}
 
         public readonly static List<WPFControls.WPFLine> Lines = new List<WPFControls.WPFLine>();
         static Grid GR;
