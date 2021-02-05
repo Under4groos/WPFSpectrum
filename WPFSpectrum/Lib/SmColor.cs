@@ -7,7 +7,7 @@ using System.Windows.Media;
 
 namespace WPFSpectrum
 {
-    static class ColorLib
+    static class SmColor
     {
         public static Color ColorDev( Color c1 , Color c2 )
         {

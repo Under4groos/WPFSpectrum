@@ -9,9 +9,6 @@ namespace WpfSpectrum
         private Task Task_;
         private DispatcherTimer DispatcherTimer_;
         private int time = 1;
-        /// <summary>
-        /// Время в миллисекундах.
-        /// </summary>
         public int Time
         {
             get => time;
@@ -24,15 +21,8 @@ namespace WpfSpectrum
             }
         }
         private void Update() => DispatcherTimer_.Interval = new TimeSpan(0, 0, 0, 0, time);
-        /// <summary>
-        /// Подписка на событие.
-        /// </summary>
         public event EventHandler Tick;
         public TimerTick() => Time = 1;           
-        
-        /// <summary>
-        /// Запуск таймера в др. потоке.
-        /// </summary>
         public void Start()
         {
             if(DispatcherTimer_ == null || Tick != null)
@@ -44,9 +34,6 @@ namespace WpfSpectrum
                 Task_.Start();
             }
         }
-        /// <summary>
-        /// Остановка таймера и потока.
-        /// </summary>
         public void Stop()
         {
             if (DispatcherTimer_ == null)

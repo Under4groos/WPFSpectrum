@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:WPFControls"
         mc:Ignorable="d" ShowInTaskbar="False"  
         WindowStyle="None" AllowsTransparency="True" 
-        Title="" Height="320" Width="715" MouseLeave="Window_MouseLeave">
+        Title="" Height="600" Width="715" MouseLeave="Window_MouseLeave">
     <Window.Background>
-        <SolidColorBrush Color="#E5232323"></SolidColorBrush>
+        <SolidColorBrush></SolidColorBrush>
     </Window.Background>
-    <Grid>
+    <Grid Visibility="Hidden">
         <Label Content="UnderKo" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="White" Height="25" Width="56"/>
         <Border HorizontalAlignment="Left" Width="450" VerticalAlignment="Top" Height="275" Margin="0,2,0,0">
             <StackPanel>

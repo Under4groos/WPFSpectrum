@@ -22,7 +22,7 @@ namespace WPFNaudioLib
             FFT_32768 = 16384,
         }
     }
-    public class Audio
+    public class Audio : AudioChannelFFT
     {
         IWaveIn waveIn;
         AudioLib audio;
@@ -64,7 +64,8 @@ namespace WPFNaudioLib
             if (GetStatus)
                 return;
             AudioDevice.SearchActDeviceID();
-            audio = audio == null ?new AudioLib(Length): audio;
+            //audio = audio == null ?new AudioLib(Length): audio;
+            audio = new AudioLib(Length);
             audio.FftCalculated += new EventHandler<FftEventArgs>(FFT);
             audio.PerformFFT = true;
 

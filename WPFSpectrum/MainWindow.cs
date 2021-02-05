@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Interop;
 using WPFControls;
 using WPFNaudioLib;
 using WpfSpectrum;
+using WPFSpectrum.Lib;
 
 namespace WPFSpectrum
 {
@@ -22,11 +25,14 @@ namespace WPFSpectrum
         Configuration cfg = new Configuration();
         readonly Json j = new Json();
         #endregion  
-
+   
 
         public MainWindow()
         {
             InitializeComponent();
+
+            System.Windows.MessageBox.Show($"{new Win_Screen(this).ScreenSize}");
+
             #region OpenNewSetttingProgram
             if (j.IsVoidFile())
             {
@@ -52,6 +58,8 @@ namespace WPFSpectrum
 
             Setting();
             #endregion
+
+            
 
             timer.Time = cfg.TimeInterval;
             timer.Tick += Timer_Tick;
@@ -129,8 +137,7 @@ namespace WPFSpectrum
 
         }
         private void SetPos(Point p)
-        {
-           
+        {         
             this.Left = p.X;
             this.Top  = p.Y;
         }
@@ -143,7 +150,7 @@ namespace WPFSpectrum
         {
             cfg.TomMost = windNotify.CheckBoxs[0].Active;
             cfg.isSmoothness = windNotify.CheckBoxs[1].Active;
-            Debug.WriteLine(cfg.isSmoothness);
+            //Debug.WriteLine(cfg.isSmoothness);
             SaveSetting();
         }
 
@@ -215,13 +222,13 @@ namespace WPFSpectrum
         {
             this.Topmost = cfg.TomMost;
             switch (AudioDevice.IsWorking())
-            {
+            {              
                 case true:
                     if (j.isUpdateFile())
                     {
                         if (windNotify.IsActive)
                             return;
-                        Debug.WriteLine("Обновление настроек...");
+                        //Debug.WriteLine("Обновление настроек...");
                         Thread.Sleep(100);
                         j.OpenJson();
                         cfg = j.Config;
@@ -232,21 +239,19 @@ namespace WPFSpectrum
                     {
                         ControlsLib.IsMinAll = true;
                     }
+                    
                     audio.StartRecording();
+                    double inc = ControlsLib.MinAllDouble();
 
                     for (int i = 0; i < ControlsLib.Count(); i++)
                     {
                         double size_h = audio.list_array[i];
                         double last_size_h = ControlsLib.GetElementByID(i).SizeHeight;
                         double len_double = last_size_h;
-                        if (size_h > 5)
-                        {
-                            size_h = this.Height - size_h;
-                        }
-                        else
-                        {
-                            size_h = 5;
-                        }
+
+                        size_h = size_h > 5 ? this.Height - size_h  : 5;
+
+                        
                         if (size_h > last_size_h)
                         {
                             switch (cfg.isSmoothness)
@@ -265,8 +270,7 @@ namespace WPFSpectrum
                         {
                             len_double -= cfg.Increment;
                         }
-                        ControlsLib.GetElementByID(i).ColorLine = cfg.ColorLine;
-                        ControlsLib.GetElementByID(i).SizeHeight = len_double;
+                        ControlsLib.GetElementByID(i).SizeHeight = len_double - inc * 0.98;
                     }
 
                     ControlsLib.SmoothHistogram(ControlsLib.Lines);

@@ -13,40 +13,26 @@ namespace WPFSpectrum
 {
     static class ControlsLib
     {
-
-        public static void ControlWindNotifysetColor(Border ui , byte a , byte r , byte g , byte b)
-        {         
-                ui.BorderBrush = new System.Windows.Media.SolidColorBrush(Color.FromArgb(a, r, g, b));
-        }
+        // ------------------------------
+        public readonly static List<WPFControls.WPFLine> Lines = new List<WPFControls.WPFLine>();
+        static Grid GR;
         public static bool IsMinAll
         {
             get; set;
         } = true;
-        //public static bool IsMinAllInt(int min)
-        //{
-        //    bool b = false;
-        //    for (int i = 0; i < Count(); i++)
-        //    {
-        //        if (GetElementByID(i).SizeHeight > min)
-        //        {
+        // ------------------------------
 
-        //            b = true;
-        //        }
-        //        else
-        //        {
-        //            b = false;
-        //        }
-        //    }
-        //    return b;
-        //}
-
-        public readonly static List<WPFControls.WPFLine> Lines = new List<WPFControls.WPFLine>();
-        static Grid GR;
-        /// <summary>
-        /// Получить из листа элемент по его ID
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        public static double MinAllDouble()
+        {
+            double min = double.MaxValue;
+            for (int i = 0; i < Count(); i++)
+            {
+                double d = GetElementByID(i).SizeHeight;
+                if (min > d)
+                    min = d;
+            }
+            return min;
+        }
         public static WPFControls.WPFLine GetElementByID(int id)
         {
             if (id > Lines.Count)
@@ -58,7 +44,6 @@ namespace WPFSpectrum
         /// <summary>
         /// Получить кол-во линий.
         /// </summary>
-        /// <returns></returns>
         public static int Count()
         {
             return Lines.Count();
@@ -74,11 +59,7 @@ namespace WPFSpectrum
         }
         /// <summary>
         /// Создание линий подстраивающихся под размер окна с учетов их размера.
-        /// </summary>
-        /// <param name="SizeWindowHeight"></param>
-        /// <param name="SizeWindowWidth"></param>
-        /// <param name="SizePanelWidth"></param>
-        /// <param name="grid"></param>
+        /// </summary>     
         public static void CreateLine(
            double SizeWindowHeight, double SizeWindowWidth, int SizePanelWidth,Grid grid , Color color)
         {
@@ -88,7 +69,7 @@ namespace WPFSpectrum
             int sp = SizePanelWidth >0? SizePanelWidth:1;
             int count = sw / sp;           
             int size_ = (int)(SizeWindowWidth / count);
-            Debug.WriteLine($"Size:{size_} Count:{count}");
+            //Debug.WriteLine($"Size:{size_} Count:{count}");
             for (int i = 0; i < count; i++)
             {
                 WPFLine wPFLine = new WPFLine
@@ -106,28 +87,15 @@ namespace WPFSpectrum
                 Lines.Add(wPFLine);
             }
         }
-        public static void Default(double Incr = 1.8)
-        {
-            for (int i = 0; i < Count(); i++)
-            {
-                
-                GetElementByID(i).SizeHeight = 5;
-            }
-        }
-        public static void SetActiveBorder(Border b, bool a)
-        {
-            b.BorderBrush = a ? new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)) :
-                new SolidColorBrush(Color.FromArgb(0, 255, 0, 0));
-        }
+      
         public static void SmoothHistogram(List<WPFLine> originalValues)
         {
             List<double> smoothedValues = new List<double>();
-            foreach (var item in originalValues)
-            {
-                smoothedValues.Add(item.SizeHeight);
-            }
-            
             double[] mask = new double[] { 0.25, 0.5, 0.25 };
+
+            foreach (var item in originalValues)
+                smoothedValues.Add(item.SizeHeight);
+
             for (int bin = 1; bin < originalValues.Count - 2; bin++)
             {
                 double smoothedValue = 0;
@@ -142,6 +110,25 @@ namespace WPFSpectrum
                 originalValues[i].SizeHeight = smoothedValues[i];
             }
         }
+        #region - Comment
+        //public static void ElementDefault(double Incr = 1.8)
+        //{
+        //    for (int i = 0; i < Count(); i++)
+        //    {
 
+        //        GetElementByID(i).SizeHeight = 5;
+        //    }
+        //}
+        //public static void ControlWindNotifysetColor(Border ui, byte a, byte r, byte g, byte b)
+        //{
+        //    ui.BorderBrush = new System.Windows.Media.SolidColorBrush(Color.FromArgb(a, r, g, b));
+        //}
+        //public static void SetActiveBorder(Border b, bool a)
+        //{
+        //    b.BorderBrush = a ? new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)) :
+        //        new SolidColorBrush(Color.FromArgb(0, 255, 0, 0));
+        //}
+
+        #endregion
     }
 }

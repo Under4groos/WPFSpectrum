@@ -33,15 +33,15 @@ namespace WPFSpectrum
         /// <summary>
         /// Плавное вычитание размера линий.
         /// </summary>
-        public double Increment = 0.62;
+        public double Increment = 2.42;
         /// <summary>
         /// Размер окна с линиями.
         /// </summary>
-        public Size SizeWindow = new Size(500, 300);
+        public Size SizeWindow = new Size(800, 300);
         /// <summary>
         /// Позиция окна с линиями.
         /// </summary>
-        public Point PositionWindow = new Point(50, 50);
+        public Point PositionWindow = new Point(10, 250);
         /// <summary>
         /// Цвет линий.
         /// </summary>

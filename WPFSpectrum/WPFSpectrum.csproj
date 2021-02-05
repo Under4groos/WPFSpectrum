@@ -67,12 +67,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ColorLib.cs" />
+    <Compile Include="Config\cfg_Json.cs" />
+    <Compile Include="Config\cfg_xml.cs" />
+    <Compile Include="Native\NativeMonitorInfo.cs" />
+    <Compile Include="Native\NativeRectangle.cs" />
+    <Compile Include="Lib\SmColor.cs" />
     <Compile Include="Configuration.cs" />
+    <Compile Include="Enum\Monitor.cs" />
     <Compile Include="Json.cs" />
+    <Compile Include="Lib\Debug.cs" />
+    <Compile Include="Lib\Win_Screen.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Size.cs" />
     <Compile Include="TimerTick.cs" />
+    <Compile Include="WinApi\API.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -127,5 +135,6 @@
   <ItemGroup>
     <None Include="Resources\Безымянный.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

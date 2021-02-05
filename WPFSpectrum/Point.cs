@@ -35,10 +35,6 @@ namespace WPFSpectrum
         public static Point operator *(Point c1, double d)
             => new Point(c1.X * d, c1.Y * d);
 
-        public override string ToString()
-        {
-            return $"{X}*{Y}";
-        }
-
+        public override string ToString() => $"{X}*{Y}";
     }
 }

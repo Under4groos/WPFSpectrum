@@ -41,6 +41,7 @@ namespace WPFNaudioLib
                 }
             }
         }
+
     }
 
     public class FftEventArgs : EventArgs

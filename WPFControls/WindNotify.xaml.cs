@@ -67,15 +67,14 @@ namespace WPFControls
         }
         public void SetPos()
         {
-            Point CurPos = User32Mouse.GetCursorPosition();
+            //Point CurPos = User32Mouse.GetCursorPosition();
+            //double d = Screen.PrimaryScreen.Bounds.Height - Screen.PrimaryScreen.WorkingArea.Height;
 
-            double d = Screen.PrimaryScreen.Bounds.Height - Screen.PrimaryScreen.WorkingArea.Height;
-
-     
             double w = Screen.PrimaryScreen.Bounds.Width;
             double h = Screen.PrimaryScreen.Bounds.Height;
             this.Top = h - this.Height;
-            this.Left = w/2 - this.Width/2;         
+            this.Left = w/2 - this.Width/2;
+            this.Topmost = true;
         }
 
         private void Window_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
@@ -85,13 +84,9 @@ namespace WPFControls
             
         }
 
-
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Process.GetCurrentProcess().Kill();
         }
-
-        // private void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e) => IsActiveWindow = true;
-
     }
 }
