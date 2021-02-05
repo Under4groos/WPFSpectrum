@@ -11,6 +11,7 @@ using System.Windows.Interop;
 using WPFControls;
 using WPFNaudioLib;
 using WpfSpectrum;
+using WPFSpectrum.Config;
 using WPFSpectrum.Lib;
 
 namespace WPFSpectrum
@@ -31,7 +32,14 @@ namespace WPFSpectrum
         {
             InitializeComponent();
 
-            System.Windows.MessageBox.Show($"{new Win_Screen(this).ScreenSize}");
+            //System.Windows.MessageBox.Show($"{new WinScreen(this).ScreenSize}");
+
+
+            //cfg_Json cfg_d = new cfg_Json();
+            //cfg_d.Config = cfg;
+            //cfg_d.Serialize();
+            //cfg_d.Deserialize();
+            //System.Windows.MessageBox.Show(cfg_d.ToString());
 
             #region OpenNewSetttingProgram
             if (j.IsVoidFile())
@@ -81,7 +89,10 @@ namespace WPFSpectrum
                         break;
                     case MouseButtons.Right:
                         windNotify = windNotify ?? new WindNotify();
-                        windNotify.SetPos();
+                        // 
+                        Size size_ = new WinScreen(this).ScreenSize;
+                        windNotify.SetSize(size_.X * 0.7, size_.Y * 0.7);
+                        windNotify.SetCen(size_.X, size_.Y);
                         windNotify.Show();
                         
                         windNotify.ColorBoxs[0].Text = $"{cfg.ColorLine.A},{cfg.ColorLine.R},{cfg.ColorLine.G},{cfg.ColorLine.B}";
@@ -116,7 +127,7 @@ namespace WPFSpectrum
         {
             SetSize(cfg.SizeWindow);
             SetPos(cfg.PositionWindow);
-
+            #region textBoxes CheckBoxs
             windNotify.textBoxes[0].Text = cfg.SizeWindow.ToString();
             windNotify.textBoxes[1].Text = cfg.CountSmoothHistogram.ToString();
             windNotify.textBoxes[2].Text = cfg.SizeLineHeight.ToString();
@@ -125,7 +136,9 @@ namespace WPFSpectrum
 
             windNotify.CheckBoxs[0].Active = cfg.TomMost;
             windNotify.CheckBoxs[1].Active = cfg.isSmoothness;
+            #endregion
             
+            //
             Dispatcher.BeginInvoke(
                new ThreadStart(delegate {
                    ControlsLib.CreateLine(this.Height, this.Width, cfg.SizeLineHeight, ListLine, cfg.ColorLine);
@@ -306,11 +319,11 @@ namespace WPFSpectrum
             
 
         }
-        private void ListLabel_Loaded(object sender, RoutedEventArgs e)
-            => Dispatcher.BeginInvoke(
-                new ThreadStart(delegate {
-                    ControlsLib.CreateLine(this.Height, this.Width, cfg.SizeLineHeight, ListLine, cfg.ColorLine);
-                }));
+        //private void ListLabel_Loaded(object sender, RoutedEventArgs e)
+        //    => Dispatcher.BeginInvoke(
+        //        new ThreadStart(delegate {
+        //            ControlsLib.CreateLine(this.Height, this.Width, cfg.SizeLineHeight, ListLine, cfg.ColorLine);
+        //        }));
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {

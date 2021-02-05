@@ -65,16 +65,18 @@ namespace WPFControls
                     break;
             }
         }
-        public void SetPos()
+        public void SetCen(double x , double y)
         {
-            //Point CurPos = User32Mouse.GetCursorPosition();
-            //double d = Screen.PrimaryScreen.Bounds.Height - Screen.PrimaryScreen.WorkingArea.Height;
-
-            double w = Screen.PrimaryScreen.Bounds.Width;
-            double h = Screen.PrimaryScreen.Bounds.Height;
-            this.Top = h - this.Height;
-            this.Left = w/2 - this.Width/2;
+            this.Top = y / 2 - this.Height / 2;
+            
+            this.Left = x / 2 - this.Width / 2;
             this.Topmost = true;
+        }
+
+        public void SetSize(double x, double y)
+        {
+            this.Width = x <= 0 ? 100 : x;
+            this.Height = y <= 0 ? 100 : y;
         }
 
         private void Window_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)

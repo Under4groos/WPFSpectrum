@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using WPFSpectrum.Native;
 
 namespace WPFSpectrum.Lib
 {
-    class Win_Screen
+    class WinScreen
     {
 
         private const Int32 MONITOR_DEFAULTTOPRIMERTY = 0x00000001;
@@ -22,7 +17,7 @@ namespace WPFSpectrum.Lib
         //private NativeMonitorInfo monitorInfo;
 
 
-        public Win_Screen(Window w)
+        public WinScreen(Window w)
         {
             IntPtr monitor = API.MonitorFromWindow(new WindowInteropHelper(w).EnsureHandle(), MONITOR_DEFAULTTONEAREST);
             if (monitor != IntPtr.Zero)

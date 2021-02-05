@@ -57,6 +57,9 @@ namespace WPFSpectrum
         } = 12000;
 
         public bool TomMost = true;
-
+        public override string ToString()
+        {
+            return $"";
+        }
     }
 }
